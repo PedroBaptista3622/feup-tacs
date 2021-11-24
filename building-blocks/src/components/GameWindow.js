@@ -1,43 +1,65 @@
-import { Stage, Layer, Rect, Text } from "react-konva";
-import Konva from "konva";
+import { Stage, Layer, Rect } from "react-konva";
 import { Component } from "react";
+
+import { GameBackground } from "./GameBackground";
 
 class ColoredRect extends Component {
   state = {
-    color: Konva.Util.getRandomColor(),
+    color: this.props.color,
   };
 
-  handleClick = () => {
-    this.setState({
-      color: Konva.Util.getRandomColor(),
-    });
-  };
+  // handleClick = () => {
+  //   this.setState({
+  //     color: Konva.Util.getRandomColor(),
+  //   });
+  // };
 
   render() {
     return (
       <Rect
-        x={20}
-        y={20}
-        width={50}
-        height={50}
+        x={this.props.x}
+        y={this.props.y}
+        width={40}
+        height={40}
         fill={this.state.color}
-        shadowBlur={5}
-        onClick={this.handleClick}
+        shadowBlur={1}
       />
     );
   }
 }
 
 class GameWindow extends Component {
+  getRectangles = () => {
+    const rectangleList = [];
+
+    for (let i = 0; i < this.props.gameState.length; i++) {
+      for (let j = 0; j < this.props.gameState[i].length; j++) {
+        this.props.gameState[i][j] === "x"
+          ? rectangleList.push(
+              <ColoredRect x={50 * i} y={50 * j} color="red" />
+            )
+          : rectangleList.push(
+              <ColoredRect x={50 * i} y={50 * j} color="blue" />
+            );
+      }
+    }
+
+    return rectangleList;
+  };
+
   render() {
     // Stage is a div container
     // Layer is actual canvas element (so you may have several canvases in the stage)
     // And then we have canvas shapes inside the Layer
+
+    const width = 400;
+    const height = 400;
+
     return (
-      <Stage width={400} height={400}>
+      <Stage listening={false} width={width} height={height}>
         <Layer>
-          <Text text="Try click on rect" />
-          <ColoredRect />
+          <GameBackground color="green" width={width} height={height} />
+          {this.getRectangles()}
         </Layer>
       </Stage>
     );
