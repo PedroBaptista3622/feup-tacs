@@ -1,16 +1,17 @@
-import { Rect } from "react-konva";
-import { Component } from "react";
+import { Image } from "react-konva";
+import useImage from "use-image";
 
-export class GameBackground extends Component {
-  render = () => {
-    return (
-      <Rect
-        x={0}
-        y={0}
-        width={this.props.width}
-        height={this.props.height}
-        fill={this.props.color}
-      />
-    );
-  };
-}
+import backgroundImage from "../assets/map/GameBackground.png";
+
+export const GameBackground = (props) => {
+  const [image] = useImage(backgroundImage);
+  return (
+    <Image
+      x={0}
+      y={0}
+      width={props.width}
+      height={props.height}
+      image={image}
+    />
+  );
+};

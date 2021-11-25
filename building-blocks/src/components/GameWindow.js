@@ -39,7 +39,6 @@ class GameWindow extends Component {
             width={windowSize}
             height={windowSize}
           />
-          {this.makeWallComponents(this.props.gameState.state, tileSize)}
           <GameCharacter
             player={this.props.gameState.player}
             tileSize={tileSize}
