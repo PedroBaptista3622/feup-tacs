@@ -1,31 +1,37 @@
-// import { Component } from "react";
-// import useImage from "use-image";
+import { Image } from "react-konva";
+import useImage from "use-image";
 
-// export class GameCharacter extends Component {
-//   loadImages = (facing) => {
-//     switch (facing) {
-//       case "north": {
-//         const [image] = useImage("../../assets/player/player_back.png");
-//         return <Image image={image} />;
-//       }
-//       case "west": {
-//         const [image] = useImage("../../assets/player/player_left.png");
-//         return <Image image={image} />;
-//         break;
-//       }
-//       case "east": {
-//         const [image] = useImage("../../assets/player/player_right.png");
-//         return <Image image={image} />;
-//         break;
-//       }
-//       default: {
-//         const [image] = useImage("../../assets/player/player_front.png");
-//         return <Image image={image} />;
-//       }
-//     }
-//   };
+import player_front from "../assets/player/player_front.png";
+import player_back from "../assets/player/player_back.png";
+import player_right from "../assets/player/player_right.png";
+import player_left from "../assets/player/player_left.png";
 
-//   render = () => {
-//     this.loadImages(this.props.facing);
-//   };
-// }
+const getPSPath = (facing) => {
+  switch (facing) {
+    case "north": {
+      return player_back;
+    }
+    case "west": {
+      return player_left;
+    }
+    case "east": {
+      return player_right;
+    }
+    default: {
+      return player_front;
+    }
+  }
+};
+
+export const GameCharacter = (props) => {
+  const [image] = useImage(getPSPath(props.player.facing));
+  return (
+    <Image
+      x={props.player.position.x * props.tileSize}
+      y={props.player.position.y * props.tileSize}
+      width={props.tileSize}
+      height={props.tileSize}
+      image={image}
+    />
+  );
+};

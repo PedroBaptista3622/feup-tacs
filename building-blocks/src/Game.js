@@ -22,7 +22,7 @@ export class Game {
     ];
 
     this.player = {
-      facing: facingDirections.NORTH,
+      facing: facingDirections.SOUTH,
       position: { x: 1, y: 1 },
     };
 

@@ -3,6 +3,7 @@ import { Component } from "react";
 
 import { GameBackground } from "./GameBackground";
 import { GameWall } from "./GameWall";
+import { GameCharacter } from "./GameCharacter";
 
 class GameWindow extends Component {
   makeWallComponents = (gameState, tileSize) => {
@@ -38,6 +39,10 @@ class GameWindow extends Component {
             height={windowSize}
           />
           {this.makeWallComponents(this.props.gameState.state, tileSize)}
+          <GameCharacter
+            player={this.props.gameState.player}
+            tileSize={tileSize}
+          />
         </Layer>
       </Stage>
     );
