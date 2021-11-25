@@ -15,7 +15,7 @@ class App extends Component {
   };
 
   render = () => {
-    this.runGeneratedCode('console.log(this.g.getGame())');
+    // this.runGeneratedCode('console.log(this.g.getGame())');
     return <GameWindow gameState={this.g.getGame()} />;
   };
 }
