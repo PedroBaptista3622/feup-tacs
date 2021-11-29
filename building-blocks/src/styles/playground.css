@@ -1,0 +1,25 @@
+body {
+  align-items: baseline;
+  margin: 5%;
+}
+
+.playgroundHeader {
+  background-color: #4c566a;
+  text-align: center;
+  vertical-align: center;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  color: #ffffff;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  height: 5vh;
+}
+
+.playgroundBody {
+  background-color: #eceff4;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  height: 90vh;
+  flex: 1;
+}

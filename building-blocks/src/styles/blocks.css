@@ -1,0 +1,23 @@
+body {
+  margin-top: 10vh;
+}
+
+.blockHeader {
+  background-color: #4c566a;
+  text-align: center;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  color: #ffffff;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  height: 5vh;
+}
+
+.blockBody {
+  background-color: #eceff4;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  height: 30vh;
+}
+
