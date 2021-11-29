@@ -1,6 +1,5 @@
-body {
-  align-items: baseline;
-  margin: 5%;
+.playground-col {
+  height: 100%;
 }
 
 .playgroundHeader {
@@ -13,13 +12,12 @@ body {
   color: #ffffff;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  height: 5vh;
+  height: max-content;
 }
 
 .playgroundBody {
   background-color: #eceff4;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  height: 90vh;
-  flex: 1;
+  height: 100%;
 }

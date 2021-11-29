@@ -1,6 +1,5 @@
-body {
-  align-items: baseline;
-  margin: 5%;
+.code-col {
+  height: 100%;
 }
 
 .codeHeader {
@@ -27,9 +26,6 @@ body {
   flex: 1;
   background-color: #eceff4;
   border-color: #eceff4;
-  margin-top: 2vh;
-  margin-left: 2vh;
-  margin-bottom: 2vh;
   resize: none;
 }
 

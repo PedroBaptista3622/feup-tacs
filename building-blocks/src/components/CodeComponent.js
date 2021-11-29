@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function CodeComponent() {
     return (
-        <div class="columns">
+        <div class="code-col">
             <div class="codeHeader">Code</div>
             <div class="codeBody">
                 <textarea class="code"> </textarea>

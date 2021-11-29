@@ -1,12 +1,17 @@
+html,
 body {
+  height: 100%;
+  width: 100%;
   margin: 0;
+  padding: 0;
+}
+
+body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 100%;
-  width: 100%;
   background-color: #2e3440;
 }
 
@@ -19,6 +24,18 @@ code {
   background-color: #2e3440;
 }
 
-.columns { 
-  margin-top: 2vh;
+.block-col {
+  max-width: 400px;
+}
+
+.area {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 12px;
+  margin-bottom: 12px;
+  margin-left: 6px;
+  margin-right: 6px;
+  padding: 0px;
+  max-height: 100%;
 }

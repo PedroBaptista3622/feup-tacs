@@ -1,5 +1,6 @@
-body {
-  margin-top: 10vh;
+.block-area {
+  margin-top: 12px;
+  height: 100%;
 }
 
 .blockHeader {
@@ -11,13 +12,12 @@ body {
   color: #ffffff;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  height: 5vh;
+  height: max-content;
 }
 
 .blockBody {
   background-color: #eceff4;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  height: 30vh;
+  height: 100%;
 }
-
