@@ -25,22 +25,15 @@ class App extends Component {
     // this.runGeneratedCode('console.log(this.g.getGame())');
     return (
       <>
-        <body>
-          <Container fluid>
-            <Row>
-              <Col className="block-col area">
-                <GameWindow gameState={this.g.getGame()} />
-                <BlocksComponent />
-              </Col>
-              <Col className="area">
-                <PlaygroundComponent/>
-              </Col>
-              <Col className="area">
-                <CodeComponent />
-              </Col>
-            </Row>
-          </Container>
-        </body>
+        <div class="interface">
+          <GameWindow gameState={this.g.getGame()} />
+          <BlocksComponent />
+          <PlaygroundComponent />
+          <CodeComponent />
+          <div class="Run">
+            <div class="Run">RUN BUTTON HERE</div>
+          </div>
+        </div>
       </>
     );
   };

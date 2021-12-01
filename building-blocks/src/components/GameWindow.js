@@ -32,7 +32,7 @@ class GameWindow extends Component {
     const tileSize = windowSize / this.props.gameState.state.length;
 
     return (
-      <Stage listening={false} width={windowSize} height={windowSize}>
+      <Stage listening={false} width={windowSize} height={windowSize} className="Game">
         <Layer>
           <GameBackground
             color="green"

@@ -1,8 +1,3 @@
-.block-area {
-  margin-top: 12px;
-  height: 100%;
-}
-
 .blockHeader {
   background-color: #4c566a;
   text-align: center;
@@ -12,7 +7,6 @@
   color: #ffffff;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  height: max-content;
 }
 
 .blockBody {

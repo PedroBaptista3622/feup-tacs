@@ -4,6 +4,7 @@
 
 .codeHeader {
   background-color: #4c566a;
+
   text-align: center;
   font-family: Roboto;
   font-style: normal;
@@ -11,22 +12,22 @@
   color: #ffffff;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  height: 5vh;
 }
 
 .codeBody {
   background-color: #eceff4;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  height: 80vh;
-  display: flex;
+  height: 100%;
 }
 
 .code {
-  flex: 1;
   background-color: #eceff4;
-  border-color: #eceff4;
   resize: none;
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
+  height: inherit;
+  width: 100%;
 }
 
 .code:focus {
@@ -35,7 +36,7 @@
 
 .btn-outline-success {
   background-color: #6e9b34 !important;
-  margin-top: 2vh;
+  margin-top: 12px;
   border-radius: 5%;
   color: #ffffff !important;
   border: #6e9b34 !important;
