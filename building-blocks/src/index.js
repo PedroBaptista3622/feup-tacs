@@ -4,8 +4,8 @@ import GameWindow from "./components/GameWindow";
 import BlocksComponent from "./components/BlocksComponent";
 import CodeComponent from "./components/CodeComponent";
 import PlaygroundComponent from "./components/PlaygroundComponent";
+import RunButton from "./components/RunButton";
 import { Game } from "./Game";
-import { Container, Row, Col } from "react-bootstrap";
 
 import "./styles/index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -30,9 +30,7 @@ class App extends Component {
           <BlocksComponent />
           <PlaygroundComponent />
           <CodeComponent />
-          <div class="Run">
-            <div class="Run">RUN BUTTON HERE</div>
-          </div>
+          <RunButton />
         </div>
       </>
     );

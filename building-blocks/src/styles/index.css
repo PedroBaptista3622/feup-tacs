@@ -16,23 +16,11 @@ code {
   background-color: #2e3440;
 }
 
-/* .block-col {
-  max-width: 400px;
-}
-
-.area {
-  display: flex;
-  flex-direction: column;
-
-  margin-top: 12px;
-  margin-bottom: 12px;
-  margin-left: 6px;
-  margin-right: 6px;
-  padding: 0px;
-  max-height: 100%;
-} */
-
 .interface {
+  margin: 12px;
+  height: 95vh;
+  width: auto;
+
   display: grid;
   grid-template-columns: 400px 1fr 1fr;
   grid-template-rows: 1fr 1.8fr 0.2fr;
@@ -42,33 +30,9 @@ code {
     "Game Playground Code-Generated"
     "Blocks Playground Code-Generated"
     "Blocks Playground Run";
-
-  margin: 12px;
-  height: 95vh;
-  width: auto;
 }
 
 .Game {
   grid-area: Game;
-  height: 100%;
-}
-
-.Blocks {
-  grid-area: Blocks;
-  height: 100%;
-}
-
-.Playground {
-  grid-area: Playground;
-  height: 100%;
-}
-
-.Code-Generated {
-  grid-area: Code-Generated;
-  height: 100%;
-}
-
-.Run {
-  grid-area: Run;
   height: 100%;
 }

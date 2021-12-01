@@ -1,4 +1,5 @@
-.playground-col {
+.Playground {
+  grid-area: Playground;
   height: 100%;
 }
 
@@ -12,7 +13,6 @@
   color: #ffffff;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  height: max-content;
 }
 
 .playgroundBody {

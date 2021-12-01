@@ -1,3 +1,8 @@
+.Blocks {
+  grid-area: Blocks;
+  height: 100%;
+}
+
 .blockHeader {
   background-color: #4c566a;
   text-align: center;

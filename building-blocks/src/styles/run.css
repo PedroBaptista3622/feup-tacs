@@ -1,0 +1,13 @@
+.Run {
+  grid-area: Run;
+  height: 100%;
+  margin-top: 12px;
+}
+
+.btn-outline-success {
+  background-color: #6e9b34 !important;
+  margin-top: 12px;
+  border-radius: 15px;
+  color: #ffffff !important;
+  border: #6e9b34 !important;
+}
