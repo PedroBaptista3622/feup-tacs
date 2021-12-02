@@ -1,11 +1,10 @@
-const facingDirections = {
-  NORTH: "north",
-  SOUTH: "south",
-  WEST: "west",
-  EAST: "east",
-};
+import { FullGameState, GameState, Player, Position } from "./Types";
 
 export class Game {
+  state: GameState;
+  player: Player;
+  objectivePos: Position;
+
   constructor() {
     this.state = [
       ["w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w"],
@@ -22,7 +21,7 @@ export class Game {
     ];
 
     this.player = {
-      facing: facingDirections.SOUTH,
+      facing: "south",
       position: { x: 1, y: 1 },
     };
 
@@ -30,7 +29,7 @@ export class Game {
   }
 
   // Getters
-  getGame = () => {
+  getGame = (): FullGameState => {
     return {
       state: this.state,
       player: this.player,
@@ -38,34 +37,35 @@ export class Game {
     };
   };
 
-  getState = () => this.state;
+  getState = (): GameState => this.state;
 
-  getPlayer = () => this.player;
+  getPlayer = (): Player => this.player;
 
-  getObjectivePos = () => this.objectivePos;
+  getObjectivePos = (): Position => this.objectivePos;
 
   // Utils
-  isMoveValid = (nextPos) => this.state[nextPos.y][nextPos.x] === "p";
+  isMoveValid = (nextPos: Position): boolean =>
+    this.state[nextPos.y][nextPos.x] === "p";
 
   // Actual functionality
-  movePlayer = () => {
-    const currPos = this.player.position;
-    let targetPos = {};
+  movePlayer = (): void => {
+    const currPos: Position = this.player.position;
+    let targetPos: Position;
 
-    switch (this.state) {
-      case facingDirections.NORTH: {
+    switch (this.getPlayer().facing) {
+      case "north": {
         targetPos = { x: currPos.x, y: currPos.y - 1 };
         break;
       }
-      case facingDirections.SOUTH: {
+      case "south": {
         targetPos = { x: currPos.x, y: currPos.y + 1 };
         break;
       }
-      case facingDirections.EAST: {
+      case "east": {
         targetPos = { x: currPos.x + 1, y: currPos.y };
         break;
       }
-      case facingDirections.WEST: {
+      case "west": {
         targetPos = { x: currPos.x - 1, y: currPos.y };
         break;
       }
@@ -79,22 +79,22 @@ export class Game {
     }
   };
 
-  turnPlayerRight = () => {
-    switch (this.player.facing) {
-      case facingDirections.NORTH: {
-        this.player.facing = facingDirections.EAST;
+  turnPlayerRight = (): void => {
+    switch (this.getPlayer().facing) {
+      case "north": {
+        this.player.facing = "east";
         break;
       }
-      case facingDirections.EAST: {
-        this.player.facing = facingDirections.SOUTH;
+      case "east": {
+        this.player.facing = "south";
         break;
       }
-      case facingDirections.SOUTH: {
-        this.player.facing = facingDirections.WEST;
+      case "south": {
+        this.player.facing = "west";
         break;
       }
-      case facingDirections.WEST: {
-        this.player.facing = facingDirections.NORTH;
+      case "west": {
+        this.player.facing = "north";
         break;
       }
       default: {
@@ -103,22 +103,22 @@ export class Game {
     }
   };
 
-  turnPlayerLeft = () => {
-    switch (this.player.facing) {
-      case facingDirections.NORTH: {
-        this.player.facing = facingDirections.WEST;
+  turnPlayerLeft = (): void => {
+    switch (this.getPlayer().facing) {
+      case "north": {
+        this.player.facing = "west";
         break;
       }
-      case facingDirections.WEST: {
-        this.player.facing = facingDirections.SOUTH;
+      case "west": {
+        this.player.facing = "south";
         break;
       }
-      case facingDirections.SOUTH: {
-        this.player.facing = facingDirections.EAST;
+      case "south": {
+        this.player.facing = "east";
         break;
       }
-      case facingDirections.EAST: {
-        this.player.facing = facingDirections.NORTH;
+      case "east": {
+        this.player.facing = "north";
         break;
       }
       default: {

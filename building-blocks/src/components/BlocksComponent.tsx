@@ -1,7 +1,6 @@
-import { ReactNode } from "react";
 import "../styles/blocks.css";
 
-const BlocksComponent = (): ReactNode => {
+const BlocksComponent = (): JSX.Element => {
   return (
     <div className="Blocks">
       <div className="blockHeader">Blocks</div>

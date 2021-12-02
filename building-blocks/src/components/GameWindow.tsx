@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import { Stage, Layer } from "react-konva";
 import { FullGameState } from "../Types";
 
@@ -10,7 +9,7 @@ interface GameWindowProps {
   gameState: FullGameState;
 }
 
-const GameWindow = ({ gameState }: GameWindowProps): ReactNode => {
+const GameWindow = ({ gameState }: GameWindowProps): JSX.Element => {
   // Stage is a div container
   // Layer is actual canvas element (so you may have several canvases in the stage)
   // And then we have canvas shapes inside the Layer

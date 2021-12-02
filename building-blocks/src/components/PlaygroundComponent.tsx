@@ -1,7 +1,6 @@
-import { ReactNode } from "react";
 import "../styles/playground.css";
 
-const PlaygroundComponent = () : ReactNode => {
+const PlaygroundComponent = () : JSX.Element => {
   return (
     <div className="Playground">
       <div className="playgroundHeader">Playground</div>

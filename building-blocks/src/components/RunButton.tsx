@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 
 import "../styles/run.css";
@@ -7,7 +7,7 @@ function simulateNetworkRequest() {
   return new Promise((resolve) => setTimeout(resolve, 2000));
 }
 
-function RunButton(): ReactNode {
+function RunButton(): JSX.Element {
   const [isLoading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {

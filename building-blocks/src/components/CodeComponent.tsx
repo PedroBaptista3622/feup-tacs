@@ -1,8 +1,7 @@
 import "../styles/code.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { ReactNode } from "react";
 
-function CodeComponent(): ReactNode {
+function CodeComponent(): JSX.Element {
   return (
     <div className="Code-Generated">
       <div className="codeHeader">Code</div>
