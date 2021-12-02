@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import { Image } from "react-konva";
 import useImage from "use-image";
 import { Position } from "../Types";
@@ -34,7 +33,7 @@ const getRandomObjectiveSpritePath = (): string => {
 export const GameObjective = ({
   tileSize,
   objectivePos,
-}: GameObjectiveProps): ReactNode => {
+}: GameObjectiveProps): JSX.Element => {
   const [image] = useImage(getRandomObjectiveSpritePath());
   return (
     <Image

@@ -7,7 +7,6 @@ import player_front from "../assets/player/player_front.png";
 import player_back from "../assets/player/player_back.png";
 import player_right from "../assets/player/player_right.png";
 import player_left from "../assets/player/player_left.png";
-import { ReactNode } from "react";
 
 interface GameCharacterProps {
   player: Player;
@@ -34,7 +33,7 @@ const getPSPath = (facing: FacingDirection): string => {
 export const GameCharacter = ({
   player,
   tileSize,
-}: GameCharacterProps): ReactNode => {
+}: GameCharacterProps) : JSX.Element => {
   const [image] = useImage(getPSPath(player.facing));
   return (
     <Image
