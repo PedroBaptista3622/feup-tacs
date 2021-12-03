@@ -1,6 +1,7 @@
 .Playground {
   grid-area: Playground;
   height: 100%;
+  min-width: 400px;
 }
 
 .playgroundHeader {
@@ -19,5 +20,5 @@
   background-color: #eceff4;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  height: 98%;
+  height: 100%;
 }
