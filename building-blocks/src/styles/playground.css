@@ -1,6 +1,7 @@
 .Playground {
   grid-area: Playground;
   height: 100%;
+  min-width: 400px;
 }
 
 .playgroundHeader {

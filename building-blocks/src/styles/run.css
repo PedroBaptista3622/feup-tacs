@@ -2,6 +2,8 @@
   grid-area: Run;
   height: 100%;
   margin-top: 12px;
+  align-self: stretch;
+  min-width: 400px;
 }
 
 .btn-outline-success {

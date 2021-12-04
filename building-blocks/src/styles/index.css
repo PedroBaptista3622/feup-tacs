@@ -17,10 +17,6 @@ code {
 }
 
 .interface {
-  margin: 12px;
-  height: 95vh;
-  width: auto;
-
   display: grid;
   grid-template-columns: 400px 1fr 1fr;
   grid-template-rows: 1fr 1.8fr 0.2fr;
@@ -30,6 +26,16 @@ code {
     "Game Playground Code-Generated"
     "Blocks Playground Code-Generated"
     "Blocks Playground Run";
+
+  margin: 12px;
+
+  height: 95vh;
+  width: auto;
+
+  align-self: center;
+  align-items: center;
+
+  justify-self: center;
 }
 
 .Game {
