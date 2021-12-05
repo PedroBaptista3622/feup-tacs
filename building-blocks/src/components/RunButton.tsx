@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import { Game } from "../Game";
 
 import "../styles/run.css";
 
-function simulateNetworkRequest() {
+const simulateNetworkRequest = () => {
   return new Promise((resolve) => setTimeout(resolve, 2000));
+};
+
+interface RunButtonProps {
+  onActivation: (code: string) => void;
+  generatedCode: string[];
 }
 
-function RunButton(): JSX.Element {
+function RunButton({ onActivation, generatedCode }: RunButtonProps): JSX.Element {
   const [isLoading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -20,6 +26,7 @@ function RunButton(): JSX.Element {
 
   const handleClick = (): void => {
     if (!isLoading) {
+      onActivation(generatedCode.join(""));
       setLoading(true);
     }
   };

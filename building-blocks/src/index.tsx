@@ -12,23 +12,27 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { CodeBlock } from "./codeBlocks/CodeBlock";
 import { MoveBlock } from "./codeBlocks/MoveBlock";
 
-const runGeneratedCode = (code: string): void => {
-  eval(code);
-};
-
 const App = (): JSX.Element => {
   const g: Game = new Game();
 
   const codeBlocks: CodeBlock[] = [];
   codeBlocks.push(new MoveBlock());
+  codeBlocks.push(new MoveBlock());
+
+  const generatedCode: string[] = [];
+
+  const runGeneratedCode = (code: string): void => {
+    console.log(code);
+    eval(code);
+  };
 
   return (
     <div className="interface">
       <GameWindow gameState={g.getGame()} />
       <BlocksComponent />
       <PlaygroundComponent />
-      <CodeComponent codeBlocks={codeBlocks} />
-      <RunButton />
+      <CodeComponent codeBlocks={codeBlocks} generatedCode={generatedCode} />
+      <RunButton onActivation={runGeneratedCode} generatedCode={generatedCode} />
     </div>
   );
 };
