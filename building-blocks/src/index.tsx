@@ -9,6 +9,8 @@ import RunButton from "./components/RunButton";
 
 import "./styles/index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { CodeBlock } from "./codeBlocks/CodeBlock";
+import { MoveBlock } from "./codeBlocks/MoveBlock";
 
 const runGeneratedCode = (code: string): void => {
   eval(code);
@@ -17,12 +19,15 @@ const runGeneratedCode = (code: string): void => {
 const App = (): JSX.Element => {
   const g: Game = new Game();
 
+  const codeBlocks: CodeBlock[] = [];
+  codeBlocks.push(new MoveBlock());
+
   return (
     <div className="interface">
       <GameWindow gameState={g.getGame()} />
       <BlocksComponent />
       <PlaygroundComponent />
-      <CodeComponent />
+      <CodeComponent codeBlocks={codeBlocks} />
       <RunButton />
     </div>
   );
