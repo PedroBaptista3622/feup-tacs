@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import { Game } from "../Game";
 
 import "../styles/run.css";
 
 const simulateNetworkRequest = () => {
-  return new Promise((resolve) => setTimeout(resolve, 2000));
+  return new Promise((resolve) => setTimeout(resolve, 500));
 };
 
 interface RunButtonProps {
