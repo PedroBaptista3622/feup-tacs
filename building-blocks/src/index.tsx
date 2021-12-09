@@ -5,13 +5,13 @@ import { Game } from "./Game";
 import BlocksComponent from "./components/BlocksComponent";
 import PlaygroundComponent from "./components/PlaygroundComponent";
 import CodeComponent from "./components/CodeComponent";
-import RunButton from "./components/RunButton";
 
 import "./styles/index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { CodeBlock } from "./codeBlocks/CodeBlock";
 import { MoveBlock } from "./codeBlocks/MoveBlock";
 import { TurnBlock } from "./codeBlocks/TurnBlock";
+import ButtonSection from "./components/ButtonSection";
 
 const App = (): JSX.Element => {
   const g: Game = new Game();
@@ -38,7 +38,11 @@ const App = (): JSX.Element => {
       <BlocksComponent />
       <PlaygroundComponent />
       <CodeComponent codeBlocks={codeBlocks} generatedCode={generatedCode} />
-      <RunButton onActivation={runGeneratedCode} generatedCode={generatedCode} />
+      <ButtonSection
+        game={g}
+        generatedCode={generatedCode}
+        onActivation={runGeneratedCode}
+      />
     </div>
   );
 };

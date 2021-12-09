@@ -12,7 +12,10 @@ interface RunButtonProps {
   generatedCode: string[];
 }
 
-function RunButton({ onActivation, generatedCode }: RunButtonProps): JSX.Element {
+function RunButton({
+  onActivation,
+  generatedCode,
+}: RunButtonProps): JSX.Element {
   const [isLoading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -31,16 +34,14 @@ function RunButton({ onActivation, generatedCode }: RunButtonProps): JSX.Element
   };
 
   return (
-    <div className="Run d-grid gap-2">
-      <Button
-        className="btn-outline-success"
-        disabled={isLoading}
-        onClick={handleClick}
-        size="lg"
-      >
-        {isLoading ? "Running…" : "Run"}
-      </Button>
-    </div>
+    <Button
+      className="Run btn-primary"
+      disabled={isLoading}
+      onClick={handleClick}
+      size="lg"
+    >
+      {isLoading ? "Running…" : "Run"}
+    </Button>
   );
 }
 

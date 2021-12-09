@@ -1,12 +1,12 @@
-.Run.btn-primary {
+.Reset.btn {
   grid-area: Run;
   height: 100%;
   align-self: stretch;
 
-  width: 80%;
+  width: 20%;
 
-  background-color: #6e9b34 !important;
+  background-color: #bf616a !important;
   border-radius: 15px;
   color: #ffffff !important;
-  border: #6e9b34 !important;
+  border: #bf616a !important;
 }
