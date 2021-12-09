@@ -8,14 +8,10 @@ const simulateNetworkRequest = () => {
 };
 
 interface RunButtonProps {
-  onActivation: (code: string) => void;
-  generatedCode: string[];
+  onActivation: () => void;
 }
 
-function RunButton({
-  onActivation,
-  generatedCode,
-}: RunButtonProps): JSX.Element {
+function RunButton({ onActivation }: RunButtonProps): JSX.Element {
   const [isLoading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -28,7 +24,7 @@ function RunButton({
 
   const handleClick = (): void => {
     if (!isLoading) {
-      onActivation(generatedCode.join(""));
+      onActivation();
       setLoading(true);
     }
   };

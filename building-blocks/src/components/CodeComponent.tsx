@@ -5,31 +5,25 @@ import { CodeBlock as CodeBlockInterface } from "../codeBlocks/CodeBlock";
 
 interface CodeComponentProps {
   codeBlocks: CodeBlockInterface[];
-  generatedCode: string[];
 }
 
 const buildCodeBlockComponents = (
-  codeBlocks: CodeBlockInterface[],
-  generatedCode: string[]
+  codeBlocks: CodeBlockInterface[]
 ): JSX.Element[] => {
   const componentList: JSX.Element[] = [];
+
   codeBlocks.forEach((codeBlock) => {
     componentList.push(<CodeBlock block={codeBlock} />);
-    generatedCode.push(codeBlock.generateCode());
   });
+
   return componentList;
 };
 
-function CodeComponent({
-  codeBlocks,
-  generatedCode,
-}: CodeComponentProps): JSX.Element {
+function CodeComponent({ codeBlocks }: CodeComponentProps): JSX.Element {
   return (
     <div className="Code-Generated">
       <div className="codeHeader">Code</div>
-      <div className="codeBody">
-        {buildCodeBlockComponents(codeBlocks, generatedCode)}
-      </div>
+      <div className="codeBody">{buildCodeBlockComponents(codeBlocks)}</div>
     </div>
   );
 }

@@ -10,7 +10,7 @@ export class TurnBlock implements CodeBlock {
 
   generateCode = () => {
     const code: string =
-      this.rotateTo === "left" ? "g.turnPlayerLeft();" : "g.turnPlayerRight();";
+      this.rotateTo === "left" ? "this.g.turnPlayerLeft();" : "this.g.turnPlayerRight();";
 
     return code;
   };

@@ -1,26 +1,14 @@
 import { Button } from "react-bootstrap";
-import { Game } from "../Game";
 
 import "../styles/reset.css";
 
 interface ResetButtonProps {
-  game: Game;
-  generatedCode: string[];
+  onActivation: () => void;
 }
 
-function ResetButton({ generatedCode, game }: ResetButtonProps): JSX.Element {
-  const handleClick = (): void => {
-    game = new Game();
-    generatedCode = [];
-  };
-
+function ResetButton({ onActivation }: ResetButtonProps): JSX.Element {
   return (
-    <Button
-      className="Reset btn"
-      disabled={generatedCode.length === 0}
-      onClick={handleClick}
-      size="lg"
-    >
+    <Button className="Reset btn" onClick={onActivation} size="lg">
       Reset
     </Button>
   );
