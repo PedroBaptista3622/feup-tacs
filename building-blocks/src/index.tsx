@@ -11,11 +11,17 @@ import "./styles/index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { CodeBlock } from "./codeBlocks/CodeBlock";
 import { MoveBlock } from "./codeBlocks/MoveBlock";
+import { TurnBlock } from "./codeBlocks/TurnBlock";
 
 const App = (): JSX.Element => {
   const g: Game = new Game();
 
   const codeBlocks: CodeBlock[] = [];
+  codeBlocks.push(new MoveBlock());
+  codeBlocks.push(new MoveBlock());
+  codeBlocks.push(new MoveBlock());
+  codeBlocks.push(new TurnBlock("right"));
+  codeBlocks.push(new MoveBlock());
   codeBlocks.push(new MoveBlock());
   codeBlocks.push(new MoveBlock());
 

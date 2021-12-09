@@ -1,5 +1,7 @@
 export type FacingDirection = "north" | "west" | "east" | "south";
 
+export type RotateTo = "right" | "left";
+
 export type Position = {
   x: number;
   y: number;
