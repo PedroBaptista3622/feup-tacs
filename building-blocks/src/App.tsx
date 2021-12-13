@@ -12,6 +12,7 @@ import { TurnBlock } from "./codeBlocks/TurnBlock";
 import ButtonSection from "./components/ButtonSection";
 import { Component } from "react";
 import { GameState, Player, Position } from "./Types";
+import dragula from "dragula";
 
 interface AppProps {}
 interface AppState {
@@ -100,11 +101,18 @@ export class App extends Component<AppProps, AppState> {
         }),
       1000
     );
+
+    let left = document.getElementById('left');
+    let right = document.getElementById('right');
+
+    if(left != null && right != null)
+      dragula([left, right]);
   }
 
   componentWillUnmount() {
     clearInterval(this.interval);
   }
+
 
   render() {
     return (
