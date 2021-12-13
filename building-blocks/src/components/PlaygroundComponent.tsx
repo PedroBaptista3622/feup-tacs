@@ -1,4 +1,4 @@
-import React from "react";
+import { Card } from "react-bootstrap";
 import "../styles/playground.css";
 
 const PlaygroundComponent = () : JSX.Element => {
@@ -14,24 +14,5 @@ const PlaygroundComponent = () : JSX.Element => {
     </div>
   );
 };
-
-class Card extends React.Component {
-  constructor (props:any) {
-    super(props);
-  }
-
-  render () {
-    return (
-      <div className="card">
-        <div className="card-header">
-          <h6>Example Card</h6>
-        </div>
-        <div className="card-body">
-          <p>{this.props.children}</p>
-        </div>
-      </div>
-    );
-  }
-}
 
 export default PlaygroundComponent;

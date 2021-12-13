@@ -1,5 +1,6 @@
 import dragula from "dragula";
 import * as React from "react";
+import { Card } from "react-bootstrap";
 import "../styles/blocks.css";
 
 class BlocksComponent extends React.Component {
@@ -26,24 +27,5 @@ class BlocksComponent extends React.Component {
     );
   }
 };
-
-class Card extends React.Component {
-  constructor (props:any) {
-    super(props);
-  }
-
-  render () {
-    return (
-      <div className="card">
-        <div className="card-header">
-          <h6>Example Card</h6>
-        </div>
-        <div className="card-body">
-          <p>{this.props.children}</p>
-        </div>
-      </div>
-    );
-  }
-}
 
 export default BlocksComponent;
