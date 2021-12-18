@@ -21,6 +21,19 @@
   height: 100%;
 }
 
+.codeBody {
+  background-color: #eceff4;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  height: 100%;
+  margin-top: 0px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content:flex-start;
+  align-content: center;
+}
+
 
 /* ------------------------------------------------------ */
 
@@ -57,3 +70,12 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
+.draggable_card {
+  padding: 12px, 4px;
+  margin: 12px;
+  border-radius: 8px;
+  background-color: green;
+
+  cursor: move;
+  user-select: none;
+}

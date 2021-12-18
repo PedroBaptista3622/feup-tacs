@@ -1,16 +1,23 @@
-import { Card } from "react-bootstrap";
+import { CodeBlock } from "../codeBlocks/CodeBlock";
 import "../styles/playground.css";
+import ActionBlock from "./ActionBlock";
 
-const PlaygroundComponent = () : JSX.Element => {
+interface PlaygroundProps {
+  codeBlocks: CodeBlock[];
+}
+
+const PlaygroundComponent = ({ codeBlocks }: PlaygroundProps): JSX.Element => {
+
+  let components : JSX.Element[] = [];
+
+  codeBlocks.forEach((element) =>
+    components.push(<ActionBlock block={element} />)
+  );
+
   return (
     <div className="Playground">
       <div className="playgroundHeader">Playground</div>
-      <div className="playgroundBody">
-        <div id="right" className="container">
-          <Card> Card 5 </Card>
-          <Card> Card 6 </Card>
-        </div>
-      </div>
+      <div className="playgroundBody">{components}</div>
     </div>
   );
 };

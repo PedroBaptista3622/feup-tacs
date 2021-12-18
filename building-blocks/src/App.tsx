@@ -102,17 +102,15 @@ export class App extends Component<AppProps, AppState> {
       1000
     );
 
-    let left = document.getElementById('left');
-    let right = document.getElementById('right');
+    let left = document.getElementById("left");
+    let right = document.getElementById("right");
 
-    if(left != null && right != null)
-      dragula([left, right]);
+    if (left != null && right != null) dragula([left, right]);
   }
 
   componentWillUnmount() {
     clearInterval(this.interval);
   }
-
 
   render() {
     return (
@@ -125,7 +123,7 @@ export class App extends Component<AppProps, AppState> {
           }}
         />
         <BlocksComponent />
-        <PlaygroundComponent />
+        <PlaygroundComponent codeBlocks={this.state.codeBlocks} />
         <CodeComponent codeBlocks={this.state.codeBlocks} />
         <ButtonSection onReset={this.reset} onRun={this.generateAndRunCode} />
       </div>
