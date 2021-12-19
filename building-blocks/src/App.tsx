@@ -13,6 +13,7 @@ import ButtonSection from "./components/ButtonSection";
 import { Component } from "react";
 import { GameState, Player, Position } from "./Types";
 import dragula from "dragula";
+import { RepeatNTimesBlock } from "./codeBlocks/RepeateBlock";
 
 interface AppProps {}
 interface AppState {
@@ -53,6 +54,10 @@ export class App extends Component<AppProps, AppState> {
     newCodeBlocksState.push(new MoveBlock());
     newCodeBlocksState.push(new MoveBlock());
     newCodeBlocksState.push(new MoveBlock());
+
+    const repBlock = new RepeatNTimesBlock();
+    repBlock.addBlock("Move");
+    newCodeBlocksState.push(repBlock);
 
     this.setCodeBlocksState(newCodeBlocksState);
   };
@@ -129,7 +134,10 @@ export class App extends Component<AppProps, AppState> {
           }}
         />
         <BlocksComponent />
-        <PlaygroundComponent appendCodeBlock={this.appendCodeBlock} codeBlocks={this.state.codeBlocks} />
+        <PlaygroundComponent
+          appendCodeBlock={this.appendCodeBlock}
+          codeBlocks={this.state.codeBlocks}
+        />
         <CodeComponent codeBlocks={this.state.codeBlocks} />
         <ButtonSection onReset={this.reset} onRun={this.generateAndRunCode} />
       </div>

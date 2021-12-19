@@ -31,33 +31,20 @@
   overflow: auto;
 }
 
-
-/* ------------------------------------------------------ */
-
-#left, #right {
-  background-color : #AAFFAA;
-  
-  border-radius: 3px;
-}
-
-#left {
-  width: 49%;
-  float: left;
-}
-
-#right {
-  width: 49%;
-  float: right;
-}
-
 .card {
-  background-color: #fff;
+  /* background-color: #fff;
   margin: 7px;
   border-radius: 5px;
   
-  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2);
-}
+  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2); */
+  padding: 12px, 4px;
+  margin: 12px;
+  border-radius: 8px;
+  background-color: green;
 
+  user-select: none;
+}
+/* 
 .card:hover {
   cursor: pointer;
 }
@@ -65,7 +52,7 @@
 .card-header {
   padding: 5px 0 0 5px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-}
+} */
 
 .draggable_card {
   padding: 12px, 4px;

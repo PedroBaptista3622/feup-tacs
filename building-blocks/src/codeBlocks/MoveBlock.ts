@@ -9,4 +9,6 @@ export class MoveBlock implements CodeBlock {
   getType = (): BlockType => "Move";
 
   isComplete = () => true;
+
+  canStoreOtherBlocks = () => false;
 }

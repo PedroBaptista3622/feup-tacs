@@ -2,8 +2,9 @@ import { CodeBlock } from "../codeBlocks/CodeBlock";
 import { MoveBlock } from "../codeBlocks/MoveBlock";
 import { RepeatNTimesBlock } from "../codeBlocks/RepeateBlock";
 import { TurnBlock } from "../codeBlocks/TurnBlock";
+import Block from "./Block";
+
 import "../styles/blocks.css";
-import ActionBlock from "./ActionBlock";
 
 const BlocksComponent = () => {
   const availableBlocks: CodeBlock[] = [
@@ -15,7 +16,7 @@ const BlocksComponent = () => {
   const blockList: JSX.Element[] = [];
 
   availableBlocks.forEach((element) => {
-    blockList.push(<ActionBlock block={element} />);
+    blockList.push(<Block block={element} />);
   });
 
   return (

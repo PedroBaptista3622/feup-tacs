@@ -5,4 +5,5 @@ export interface CodeBlock {
   getType: () => BlockType;
   generateCode: () => string;
   isComplete: () => boolean;
+  canStoreOtherBlocks: () => boolean;
 }

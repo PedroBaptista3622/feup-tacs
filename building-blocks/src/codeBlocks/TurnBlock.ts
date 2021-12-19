@@ -18,4 +18,6 @@ export class TurnBlock implements CodeBlock {
   getType = (): BlockType => "Turn";
 
   isComplete = () => this.rotateTo !== undefined;
+
+  canStoreOtherBlocks = () => false;
 }
