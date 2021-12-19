@@ -8,8 +8,7 @@ import ActionBlock from "./ActionBlock";
 const BlocksComponent = () => {
   const availableBlocks: CodeBlock[] = [
     new MoveBlock(),
-    new TurnBlock("left"),
-    new TurnBlock("right"),
+    new TurnBlock(),
     new RepeatNTimesBlock(),
   ];
 
@@ -22,9 +21,7 @@ const BlocksComponent = () => {
   return (
     <div className="Blocks">
       <div className="blockHeader">Blocks</div>
-      <div className="blockBody">
-        <div className="playgroundBody">{blockList}</div>
-      </div>
+      <div className="blockBody">{blockList}</div>
     </div>
   );
 };

@@ -1,11 +1,12 @@
+import { BlockType } from "../Types";
 import { CodeBlock } from "./CodeBlock";
 
 export class RepeatNTimesBlock implements CodeBlock {
-  generateCode = () => {
-    return "console.log('WIP');";
-  };
+  generateCode = () => "console.log('WIP');";
 
-  getDisplayInfo = (): string => {
-    return "Repeate WIP";
-  };
+  getDisplayInfo = (): string => "Repeate WIP";
+
+  getType = (): BlockType => "Repeat";
+
+  isComplete = () => true;
 }

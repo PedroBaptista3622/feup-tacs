@@ -1,4 +1,8 @@
+import { BlockType } from "../Types";
+
 export interface CodeBlock {
-  getDisplayInfo : () => string;
+  getDisplayInfo: () => string;
+  getType: () => BlockType;
   generateCode: () => string;
+  isComplete: () => boolean;
 }

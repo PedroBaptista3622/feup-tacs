@@ -12,16 +12,11 @@
   color: #ffffff;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
+
+  user-select: none;
 }
 
 .blockBody {
-  background-color: #eceff4;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
-  height: 100%;
-}
-
-.codeBody {
   background-color: #eceff4;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
@@ -30,8 +25,10 @@
 
   display: flex;
   flex-direction: column;
-  justify-content:flex-start;
+  justify-content: flex-start;
   align-content: center;
+
+  overflow: scroll;
 }
 
 

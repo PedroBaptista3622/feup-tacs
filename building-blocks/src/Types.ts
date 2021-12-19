@@ -47,3 +47,5 @@ export type FullGameState = {
   player: Player;
   objectivePos: Position;
 };
+
+export type BlockType = "Move" | "Turn" | "Repeat";

@@ -91,6 +91,12 @@ export class App extends Component<AppProps, AppState> {
     this.resetState();
   };
 
+  appendCodeBlock = (block: CodeBlock) => {
+    const currentBlocks: CodeBlock[] = this.state.codeBlocks;
+    currentBlocks.push(block);
+    this.setState({ codeBlocks: currentBlocks });
+  };
+
   componentDidMount() {
     this.testCodeBlocks();
 
@@ -123,7 +129,7 @@ export class App extends Component<AppProps, AppState> {
           }}
         />
         <BlocksComponent />
-        <PlaygroundComponent codeBlocks={this.state.codeBlocks} />
+        <PlaygroundComponent appendCodeBlock={this.appendCodeBlock} codeBlocks={this.state.codeBlocks} />
         <CodeComponent codeBlocks={this.state.codeBlocks} />
         <ButtonSection onReset={this.reset} onRun={this.generateAndRunCode} />
       </div>

@@ -1,24 +1,21 @@
-import { RotateTo } from "../Types";
+import { BlockType, RotateTo } from "../Types";
 import { CodeBlock } from "./CodeBlock";
 
 export class TurnBlock implements CodeBlock {
-  title: string = "Turn";
-  rotateTo: RotateTo;
+  rotateTo: RotateTo | undefined;
 
-  constructor(direction: RotateTo) {
+  constructor(direction?: RotateTo) {
     this.rotateTo = direction;
   }
 
-  generateCode = () => {
-    const code: string =
-      this.rotateTo === "left"
-        ? "this.g.turnPlayerLeft();"
-        : "this.g.turnPlayerRight();";
+  generateCode = () =>
+    this.rotateTo === "left"
+      ? "this.g.turnPlayerLeft();"
+      : "this.g.turnPlayerRight();";
 
-    return code;
-  };
+  getDisplayInfo = (): string => `Turn ${this.rotateTo}`;
 
-  getDisplayInfo = (): string => {
-    return `Turn ${this.rotateTo}`;
-  };
+  getType = (): BlockType => "Turn";
+
+  isComplete = () => this.rotateTo !== undefined;
 }

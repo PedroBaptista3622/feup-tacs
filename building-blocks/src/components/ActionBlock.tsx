@@ -1,3 +1,4 @@
+import { BaseSyntheticEvent } from "react";
 import { CodeBlock } from "../codeBlocks/CodeBlock";
 
 type ActionBlockProps = {
@@ -5,7 +6,26 @@ type ActionBlockProps = {
 };
 
 const ActionBlock = ({ block }: ActionBlockProps): JSX.Element => {
-  return <div className="draggable_card">{block.getDisplayInfo()}</div>;
+  const handleDragStart = (e: any) => {
+    e.target.style.opacity = "0.4";
+
+    e.dataTransfer.setData("blockType", block.getType());
+  };
+
+  const handleDragEnd = (e: BaseSyntheticEvent) => {
+    e.target.style.opacity = "1";
+  };
+
+  return (
+    <div
+      draggable
+      onDragEnd={handleDragEnd}
+      onDragStart={handleDragStart}
+      className="draggable_card"
+    >
+      {block.getType()}
+    </div>
+  );
 };
 
 export default ActionBlock;
