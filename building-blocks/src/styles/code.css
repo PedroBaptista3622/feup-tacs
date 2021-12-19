@@ -30,7 +30,7 @@
   justify-content: flex-start;
   align-content: center;
 
-  overflow: scroll;
+  overflow: auto;
 }
 
 .code:focus {

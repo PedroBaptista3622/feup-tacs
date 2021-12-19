@@ -40,11 +40,11 @@ const PlaygroundComponent = ({
         return;
       }
       case "Repeat": {
-        appendCodeBlock(new RepeatNTimesBlock())
+        appendCodeBlock(new RepeatNTimesBlock());
         return;
       }
       case "Turn": {
-        appendCodeBlock(new TurnBlock())
+        appendCodeBlock(new TurnBlock());
         return;
       }
     }
