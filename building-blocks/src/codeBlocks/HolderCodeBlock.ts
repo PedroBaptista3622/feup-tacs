@@ -3,6 +3,6 @@ import { CodeBlock } from "./CodeBlock";
 
 export interface HolderCodeBlock extends CodeBlock {
   storedBlocks: CodeBlock[];
-  addBlock: (blockType: BlockType) => void;
+  addBlock: (newBlock: CodeBlock) => void;
   getInnerBlocks: () => CodeBlock[];
 }

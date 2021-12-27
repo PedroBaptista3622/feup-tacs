@@ -16,9 +16,13 @@ export class RepeatNTimesBlock implements HolderCodeBlock {
 
   canStoreOtherBlocks = () => true;
 
-  addBlock = (blockType: BlockType) => {
+  addBlock = (newBlock: CodeBlock) => {
+    this.storedBlocks.push(newBlock);
+  };
+
+  buildAddBlock = (blockType: BlockType) => {
     const block: CodeBlock = buildCodeBlock(blockType);
-    this.storedBlocks.push(block);
+    this.addBlock(block);
   };
 
   getInnerBlocks = (): CodeBlock[] => this.storedBlocks;

@@ -1,22 +1,24 @@
-import { BaseSyntheticEvent } from "react";
+import React from "react";
 import { CodeBlock } from "../codeBlocks/CodeBlock";
 import { HolderCodeBlock } from "../codeBlocks/HolderCodeBlock";
 import { RepeatNTimesBlock } from "../codeBlocks/RepeateBlock";
+import { BlockType } from "../Types";
+import { buildCodeBlock } from "../utils/CodeBlockFactory";
 
 type ActionBlockProps = {
   block: CodeBlock;
 };
 
 const ActionBlock = ({ block }: ActionBlockProps): JSX.Element => {
-  const handleDragStart = (e: any) => {
-    e.target.style.opacity = "0.4";
+  // const handleDragStart = (e: any) => {
+  //   e.target.style.opacity = "0.4";
 
-    e.dataTransfer.setData("blockType", block.getType());
-  };
+  //   e.dataTransfer.setData("blockType", block.getType());
+  // };
 
-  const handleDragEnd = (e: BaseSyntheticEvent) => {
-    e.target.style.opacity = "1";
-  };
+  // const handleDragEnd = (e: BaseSyntheticEvent) => {
+  //   e.target.style.opacity = "1";
+  // };
 
   const buildInnerBlocks = (block: HolderCodeBlock) => {
     const innerBlocks: any[] = [];
@@ -28,8 +30,28 @@ const ActionBlock = ({ block }: ActionBlockProps): JSX.Element => {
     return innerBlocks;
   };
 
+  const handleDrop = (dragEvent: React.DragEvent) => {
+    dragEvent.preventDefault();
+
+    if (dragEvent !== null && dragEvent.dataTransfer !== null) {
+      const blockTypeTransfered: string =
+        dragEvent.dataTransfer.getData("blockType");
+      const blockType: BlockType = blockTypeTransfered as BlockType;
+      addBlock(blockType);
+    }
+  };
+
+  const addBlock = (blockType: BlockType) => {
+    const newBlock: CodeBlock = buildCodeBlock(blockType);
+
+    // Always true
+    if (block instanceof RepeatNTimesBlock) {
+      block.addBlock(newBlock);
+    }
+  };
+
   return block instanceof RepeatNTimesBlock ? (
-    <div className="card">
+    <div onDrop={handleDrop} className="card">
       {block.getType()}
       {buildInnerBlocks(block)}
     </div>

@@ -56,7 +56,7 @@ export class App extends Component<AppProps, AppState> {
     newCodeBlocksState.push(new MoveBlock());
 
     const repBlock = new RepeatNTimesBlock();
-    repBlock.addBlock("Move");
+    repBlock.buildAddBlock("Move");
     newCodeBlocksState.push(repBlock);
 
     this.setCodeBlocksState(newCodeBlocksState);
