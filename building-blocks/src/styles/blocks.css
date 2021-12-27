@@ -18,6 +18,12 @@
   user-select: none;
 }
 
+.invalid_block {
+  border-color: red;
+  border-width: 3px;
+  border-style: dashed;
+}
+
 .blocks_card {
   background-color: #d8dee9 !important;
   box-shadow: -2px 2px 5px gray;

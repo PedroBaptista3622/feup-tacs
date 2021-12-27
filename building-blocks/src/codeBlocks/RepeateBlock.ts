@@ -12,7 +12,9 @@ export class RepeatNTimesBlock implements HolderCodeBlock {
 
   getType = (): BlockType => "Repeat";
 
-  isComplete = () => true;
+  isComplete = (): boolean => {
+    return this.storedBlocks.every((block) => block.isComplete());
+  };
 
   canStoreOtherBlocks = () => true;
 
