@@ -4,8 +4,6 @@ import { RepeatNTimesBlock } from "../codeBlocks/RepeateBlock";
 import { TurnBlock } from "../codeBlocks/TurnBlock";
 import Block from "./Block";
 
-import "../styles/blocks.css";
-
 const BlocksComponent = () => {
   const availableBlocks: CodeBlock[] = [
     new MoveBlock(),
@@ -21,8 +19,8 @@ const BlocksComponent = () => {
 
   return (
     <div className="Blocks">
-      <div className="blockHeader">Blocks</div>
-      <div className="blockBody">{blockList}</div>
+      <div className="sectionHeader">Blocks</div>
+      <div className="sectionBody">{blockList}</div>
     </div>
   );
 };

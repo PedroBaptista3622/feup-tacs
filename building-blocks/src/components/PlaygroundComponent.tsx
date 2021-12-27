@@ -3,7 +3,6 @@ import { BlockType } from "../Types";
 import { buildCodeBlock } from "../utils/CodeBlockFactory";
 import ActionBlock from "./ActionBlock";
 
-import "../styles/playground.css";
 import React from "react";
 
 interface PlaygroundProps {
@@ -45,10 +44,10 @@ const PlaygroundComponent = ({
 
   return (
     <div className="Playground">
-      <div className="playgroundHeader">Playground</div>
+      <div className="sectionHeader">Playground</div>
       <div
         id="playgroundBody"
-        className="playgroundBody"
+        className="sectionBody"
         onDrop={handleDrop}
         onDragOver={handleDragOver}
       >

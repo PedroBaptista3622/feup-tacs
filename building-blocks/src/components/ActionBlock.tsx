@@ -5,6 +5,8 @@ import { RepeatNTimesBlock } from "../codeBlocks/RepeateBlock";
 import { BlockType } from "../Types";
 import { buildCodeBlock } from "../utils/CodeBlockFactory";
 
+import "../styles/blocks.css";
+
 type ActionBlockProps = {
   block: CodeBlock;
 };

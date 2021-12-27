@@ -4,15 +4,19 @@ import BlocksComponent from "./components/BlocksComponent";
 import PlaygroundComponent from "./components/PlaygroundComponent";
 import CodeComponent from "./components/CodeComponent";
 
-import "./styles/index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+
+import "./styles/index.css";
+import "./styles/sections.css";
+import "./styles/blocks.css";
+import "./styles/buttons.css";
+
 import { CodeBlock } from "./codeBlocks/CodeBlock";
 import { MoveBlock } from "./codeBlocks/MoveBlock";
 import { TurnBlock } from "./codeBlocks/TurnBlock";
-import ButtonSection from "./components/ButtonSection";
+import { ButtonSection } from "./components/ButtonSection";
 import { Component } from "react";
 import { GameState, Player, Position } from "./Types";
-import dragula from "dragula";
 import { RepeatNTimesBlock } from "./codeBlocks/RepeateBlock";
 
 interface AppProps {}
@@ -110,7 +114,7 @@ export class App extends Component<AppProps, AppState> {
         this.setState({
           playerState: this.g.getPlayer(),
         }),
-      1000/30
+      1000 / 30
     );
   }
 
