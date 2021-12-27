@@ -10,16 +10,6 @@ type ActionBlockProps = {
 };
 
 const ActionBlock = ({ block }: ActionBlockProps): JSX.Element => {
-  // const handleDragStart = (e: any) => {
-  //   e.target.style.opacity = "0.4";
-
-  //   e.dataTransfer.setData("blockType", block.getType());
-  // };
-
-  // const handleDragEnd = (e: BaseSyntheticEvent) => {
-  //   e.target.style.opacity = "1";
-  // };
-
   const buildInnerBlocks = (block: HolderCodeBlock) => {
     const innerBlocks: any[] = [];
 
@@ -43,7 +33,7 @@ const ActionBlock = ({ block }: ActionBlockProps): JSX.Element => {
 
   const addBlock = (blockType: BlockType) => {
     const newBlock: CodeBlock = buildCodeBlock(blockType);
-
+    
     // Always true
     if (block instanceof RepeatNTimesBlock) {
       block.addBlock(newBlock);

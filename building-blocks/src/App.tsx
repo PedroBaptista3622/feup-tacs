@@ -110,13 +110,8 @@ export class App extends Component<AppProps, AppState> {
         this.setState({
           playerState: this.g.getPlayer(),
         }),
-      1000
+      1000/30
     );
-
-    let left = document.getElementById("left");
-    let right = document.getElementById("right");
-
-    if (left != null && right != null) dragula([left, right]);
   }
 
   componentWillUnmount() {

@@ -1,4 +1,4 @@
-import React, { BaseSyntheticEvent } from "react";
+import React from "react";
 import { CodeBlock } from "../codeBlocks/CodeBlock";
 
 type BlockProps = {
