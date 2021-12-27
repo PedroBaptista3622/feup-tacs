@@ -1,4 +1,4 @@
-import { BaseSyntheticEvent } from "react";
+import React, { BaseSyntheticEvent } from "react";
 import { CodeBlock } from "../codeBlocks/CodeBlock";
 
 type BlockProps = {
@@ -6,14 +6,16 @@ type BlockProps = {
 };
 
 const Block = ({ block }: BlockProps): JSX.Element => {
-  const handleDragStart = (e: any) => {
-    e.target.style.opacity = "0.4";
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLDivElement;
+    target.style.opacity = "0.4";
 
     e.dataTransfer.setData("blockType", block.getType());
   };
 
-  const handleDragEnd = (e: BaseSyntheticEvent) => {
-    e.target.style.opacity = "1";
+  const handleDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLDivElement;
+    target.style.opacity = "1";
   };
 
   return (
