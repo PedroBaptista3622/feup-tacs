@@ -23,7 +23,7 @@ const Block = ({ block }: BlockProps): JSX.Element => {
       draggable
       onDragEnd={handleDragEnd}
       onDragStart={handleDragStart}
-      className="draggable_card"
+      className="draggable blocks_card"
     >
       {block.getType()}
     </div>

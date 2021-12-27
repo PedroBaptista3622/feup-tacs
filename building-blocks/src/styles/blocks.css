@@ -1,34 +1,37 @@
-.draggable_card {
-  background-color: #d8dee9;
-  box-shadow: -2px 2px 5px gray;
-  border-radius: 15px;
-
-  width: auto;
-  min-width: 40%;
-
-  height: min-content;
-
-  padding: 12px;
-  margin-top: 12px;
-  margin-left: auto;
-  margin-right: auto;
-
+.draggable {
   cursor: move;
-  user-select: none;
 }
 
 .card {
-  background-color: #d8dee9;
+  background-color: #d8dee9 !important;
   box-shadow: -2px 2px 5px gray;
-  border-radius: 15px;
+  border-radius: 15px !important;
 
   width: 90%;
   height: min-content;
 
-  padding: 12px;
+  padding: 8px;
   margin-top: 12px;
   margin-left: auto;
   margin-right: auto;
 
   user-select: none;
+}
+
+.blocks_card {
+  background-color: #d8dee9 !important;
+  box-shadow: -2px 2px 5px gray;
+  border-radius: 15px !important;
+
+  height: min-content;
+
+  padding: 8px 12%;
+
+  margin-top: 12px;
+  margin-left: auto;
+  margin-right: auto;
+
+  user-select: none;
+
+  text-align: center;
 }
