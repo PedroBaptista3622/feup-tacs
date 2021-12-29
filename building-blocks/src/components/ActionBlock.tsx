@@ -68,6 +68,7 @@ const ActionBlock = ({ block }: ActionBlockProps): JSX.Element => {
             }}
             name={arg.displayName}
           >
+            <option hidden disabled selected> -- select an option -- </option>
             {arg.possibleValues.map((val) => (
               <option value={val}>{val}</option>
             ))}

@@ -24,8 +24,6 @@ export class TurnBlock implements CodeBlock {
   canStoreOtherBlocks = () => false;
 
   setRotateTo = (newValue: RotateTo): void => {
-    console.log("SET ROTATE");
-    console.log(newValue);
     this.rotateTo = newValue;
   };
 
