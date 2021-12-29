@@ -54,7 +54,7 @@ export class RepeatNTimesBlock implements HolderCodeBlock {
   generateArguments = (): Argument[] => {
     let requiredArguments: Argument[] = [];
 
-    let rotateToArg = new OpenArgument("number", this.setNumIter, 20, 1);
+    let rotateToArg = new OpenArgument("Number iterations", "number", this.setNumIter, 20, 1);
     requiredArguments.push(rotateToArg);
 
     return requiredArguments;

@@ -5,10 +5,15 @@ import { CodeBlock } from "./CodeBlock";
 export class TurnBlock implements CodeBlock {
   rotateTo: RotateTo | undefined;
 
-  generateCode = () =>
-    this.rotateTo === "left"
-      ? "this.g.turnPlayerLeft();"
-      : "this.g.turnPlayerRight();";
+  generateCode = () => {
+    if (this.rotateTo === "left") {
+      return "this.g.turnPlayerLeft();";
+    } else if (this.rotateTo === "right") {
+      return "this.g.turnPlayerRight();";
+    } else {
+      return "console.log('Error')";
+    }
+  };
 
   getDisplayInfo = (): string => `Turn ${this.rotateTo}`;
 
@@ -18,12 +23,21 @@ export class TurnBlock implements CodeBlock {
 
   canStoreOtherBlocks = () => false;
 
-  setRotateTo = (newValue: RotateTo): void => {};
+  setRotateTo = (newValue: RotateTo): void => {
+    console.log("SET ROTATE");
+    console.log(newValue);
+    this.rotateTo = newValue;
+  };
 
   generateArguments = (): Argument[] => {
     let requiredArguments: Argument[] = [];
 
-    let rotateToArg = new ClosedArgument("string", this.setRotateTo, ["left", "right"]);
+    let rotateToArg = new ClosedArgument(
+      "Direction",
+      "string",
+      this.setRotateTo,
+      ["left", "right"]
+    );
     requiredArguments.push(rotateToArg);
 
     return requiredArguments;

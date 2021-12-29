@@ -1,4 +1,5 @@
 import React from "react";
+import { Argument, ClosedArgument, OpenArgument } from "../codeBlocks/Argument";
 import { CodeBlock } from "../codeBlocks/CodeBlock";
 import { HolderCodeBlock } from "../codeBlocks/HolderCodeBlock";
 import { RepeatNTimesBlock } from "../codeBlocks/RepeateBlock";
@@ -10,11 +11,13 @@ type ActionBlockProps = {
 };
 
 const ActionBlock = ({ block }: ActionBlockProps): JSX.Element => {
-  const buildInnerBlocks = (block: HolderCodeBlock) => {
-    const innerBlocks: any[] = [];
+  const buildInnerBlocks = (block: HolderCodeBlock): JSX.Element[] => {
+    const innerBlocks: JSX.Element[] = [];
 
     block.getInnerBlocks().forEach((val: CodeBlock) => {
-      innerBlocks.push(<div className={getClassNames(val)}>{val.getType()}</div>);
+      innerBlocks.push(
+        <div className={getClassNames(val)}>{val.getType()}</div>
+      );
     });
 
     return innerBlocks;
@@ -40,7 +43,7 @@ const ActionBlock = ({ block }: ActionBlockProps): JSX.Element => {
     }
   };
 
-  const getClassNames = (block : CodeBlock): string => {
+  const getClassNames = (block: CodeBlock): string => {
     const classNames: string[] = ["card"];
 
     if (!block.isComplete()) {
@@ -50,13 +53,40 @@ const ActionBlock = ({ block }: ActionBlockProps): JSX.Element => {
     return classNames.join(" ");
   };
 
-  return block instanceof RepeatNTimesBlock ? (
+  const createArgumentInputs = (): JSX.Element[] => {
+    const argumentElements: JSX.Element[] = [];
+    const argumentList: Argument[] = block.generateArguments();
+
+    argumentList.forEach((arg) => {
+      if (arg instanceof OpenArgument) {
+      } else if (arg instanceof ClosedArgument) {
+        const seletor: JSX.Element = (
+          <select
+            onChange={(e: React.ChangeEvent) => {
+              const target = e.target as HTMLSelectElement;
+              arg.setNewValue(target.value);
+            }}
+            name={arg.displayName}
+          >
+            {arg.possibleValues.map((val) => (
+              <option value={val}>{val}</option>
+            ))}
+          </select>
+        );
+
+        argumentElements.push(seletor);
+      }
+    });
+
+    return argumentElements;
+  };
+
+  return (
     <div onDrop={handleDrop} className={getClassNames(block)}>
       {block.getType()}
-      {buildInnerBlocks(block)}
+      {createArgumentInputs()}
+      {block instanceof RepeatNTimesBlock ? buildInnerBlocks(block) : <></>}
     </div>
-  ) : (
-    <div className={getClassNames(block)}>{block.getType()}</div>
   );
 };
 
