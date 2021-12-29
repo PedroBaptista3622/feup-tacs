@@ -1,4 +1,5 @@
 import { BlockType } from "../Types";
+import { Argument } from "./Argument";
 
 export interface CodeBlock {
   getDisplayInfo: () => string;
@@ -6,4 +7,5 @@ export interface CodeBlock {
   generateCode: () => string;
   isComplete: () => boolean;
   canStoreOtherBlocks: () => boolean;
+  generateArguments: () => Argument[];
 }

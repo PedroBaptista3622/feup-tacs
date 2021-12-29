@@ -11,4 +11,6 @@ export class MoveBlock implements CodeBlock {
   isComplete = () => true;
 
   canStoreOtherBlocks = () => false;
+
+  generateArguments = () => [];
 }

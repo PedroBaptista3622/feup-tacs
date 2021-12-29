@@ -54,7 +54,7 @@ export class App extends Component<AppProps, AppState> {
     newCodeBlocksState.push(new MoveBlock());
     newCodeBlocksState.push(new MoveBlock());
     newCodeBlocksState.push(new MoveBlock());
-    newCodeBlocksState.push(new TurnBlock("right"));
+    newCodeBlocksState.push(new TurnBlock());
     newCodeBlocksState.push(new MoveBlock());
     newCodeBlocksState.push(new MoveBlock());
     newCodeBlocksState.push(new MoveBlock());

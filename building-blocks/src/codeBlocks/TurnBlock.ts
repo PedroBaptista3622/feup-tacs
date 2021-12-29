@@ -1,12 +1,9 @@
 import { BlockType, RotateTo } from "../Types";
+import { Argument, ClosedArgument } from "./Argument";
 import { CodeBlock } from "./CodeBlock";
 
 export class TurnBlock implements CodeBlock {
   rotateTo: RotateTo | undefined;
-
-  constructor(direction?: RotateTo) {
-    this.rotateTo = direction;
-  }
 
   generateCode = () =>
     this.rotateTo === "left"
@@ -20,4 +17,15 @@ export class TurnBlock implements CodeBlock {
   isComplete = () => this.rotateTo !== undefined;
 
   canStoreOtherBlocks = () => false;
+
+  setRotateTo = (newValue: RotateTo): void => {};
+
+  generateArguments = (): Argument[] => {
+    let requiredArguments: Argument[] = [];
+
+    let rotateToArg = new ClosedArgument("string", this.setRotateTo, ["left", "right"]);
+    requiredArguments.push(rotateToArg);
+
+    return requiredArguments;
+  };
 }
