@@ -66,3 +66,24 @@
   text-align: center;
   width: min-content;
 }
+
+.block_header {
+  display: flex;
+  flex-direction: row;
+
+  vertical-align: middle;
+}
+
+.remove_block_icon {
+  color: #bf616a;
+  width: min-content;
+}
+
+.remove_block_icon:hover {
+  cursor: pointer;
+  scale: 1.4;
+}
+
+.block_title {
+  width: 100%;
+}

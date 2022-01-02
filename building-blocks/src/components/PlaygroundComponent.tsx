@@ -14,12 +14,6 @@ const PlaygroundComponent = ({
   codeBlocks,
   appendCodeBlock,
 }: PlaygroundProps): JSX.Element => {
-  let components: JSX.Element[] = [];
-
-  codeBlocks.forEach((element) =>
-    components.push(<ActionBlock block={element} />)
-  );
-
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
   };
@@ -41,6 +35,19 @@ const PlaygroundComponent = ({
     const block: CodeBlock = buildCodeBlock(blockType);
     appendCodeBlock(block);
   };
+
+  const removeBlock = (block: CodeBlock): void => {
+    const index = codeBlocks.indexOf(block);
+    if (index > -1) {
+      codeBlocks.splice(index, 1);
+    }
+  };
+
+  let components: JSX.Element[] = [];
+
+  codeBlocks.forEach((element) =>
+    components.push(<ActionBlock block={element} removeBlock={removeBlock} />)
+  );
 
   return (
     <div className="Playground">

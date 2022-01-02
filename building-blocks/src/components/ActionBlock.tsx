@@ -5,12 +5,15 @@ import { HolderCodeBlock } from "../codeBlocks/HolderCodeBlock";
 import { RepeatNTimesBlock } from "../codeBlocks/RepeateBlock";
 import { BlockType } from "../Types";
 import { buildCodeBlock } from "../utils/CodeBlockFactory";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 
 type ActionBlockProps = {
   block: CodeBlock;
+  removeBlock: (block: CodeBlock) => void;
 };
 
-const ActionBlock = ({ block }: ActionBlockProps): JSX.Element => {
+const ActionBlock = ({ block, removeBlock }: ActionBlockProps): JSX.Element => {
   const buildInnerBlocks = (block: HolderCodeBlock): JSX.Element[] => {
     const innerBlocks: JSX.Element[] = [];
 
@@ -74,9 +77,9 @@ const ActionBlock = ({ block }: ActionBlockProps): JSX.Element => {
                 let valueToSet: number = targetValue;
 
                 if (arg.min !== undefined) {
-                  console.log(targetValue)
+                  console.log(targetValue);
                   valueToSet = Math.max(arg.min, targetValue);
-                  console.log(valueToSet)
+                  console.log(valueToSet);
                 }
 
                 if (arg.max !== undefined) {
@@ -119,7 +122,17 @@ const ActionBlock = ({ block }: ActionBlockProps): JSX.Element => {
 
   return (
     <div onDrop={handleDrop} className={getClassNames(block)}>
-      {block.getType()}
+      <div className="block_header">
+        <div className="block_title">{block.getType()}</div>
+        <div
+          onClick={() => {
+            removeBlock(block);
+          }}
+          className="remove_block_icon"
+        >
+          <FontAwesomeIcon icon={faTimesCircle} />
+        </div>
+      </div>
       <div className="block_argument_section">{createArgumentInputs()}</div>
       {block instanceof RepeatNTimesBlock ? buildInnerBlocks(block) : <></>}
     </div>
