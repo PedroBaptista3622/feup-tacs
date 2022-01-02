@@ -1,0 +1,76 @@
+.sectionHeader {
+  background-color: #4c566a;
+  text-align: center;
+  vertical-align: center;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  color: #ffffff;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+
+  user-select: none;
+}
+
+.sectionBody {
+  background-color: #eceff4;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  height: 100%;
+  margin-top: 0px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: center;
+
+  overflow: auto;
+}
+
+.Playground {
+  grid-area: Playground;
+  height: 100%;
+  min-width: 400px;
+}
+
+.Code-Generated {
+  grid-area: Code-Generated;
+  height: 100%;
+  min-width: 400px;
+}
+
+.Blocks {
+  grid-area: Blocks;
+  height: 100%;
+}
+
+.Buttons {
+  grid-area: Buttons;
+}
+
+.buttonSection {
+  margin-top: 24px;
+
+  display: flex;
+  flex-direction: row;
+
+  justify-content: center;
+  align-self: center;
+  gap: 12px;
+}
+
+.codeSection {
+  background-color: #d8dee9;
+  box-shadow: -2px 2px 5px gray;
+  border-radius: 15px;
+
+  width: 90%;
+  height: min-content;
+
+  padding: 12px;
+  margin-top: 12px;
+  margin-left: auto;
+  margin-right: auto;
+
+  text-align: center;
+}

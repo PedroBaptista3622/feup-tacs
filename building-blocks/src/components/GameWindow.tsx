@@ -10,12 +10,9 @@ interface GameWindowProps {
 }
 
 const GameWindow = ({ gameState }: GameWindowProps): JSX.Element => {
-  // Stage is a div container
-  // Layer is actual canvas element (so you may have several canvases in the stage)
-  // And then we have canvas shapes inside the Layer
-
-  const windowSize = 400;
-  const tileSize = windowSize / gameState.state.length;
+  const windowSize: number = 400;
+  const tileSize: number = windowSize / gameState.state.length;
+  const { player, objectivePos } = gameState;
 
   return (
     <Stage
@@ -26,11 +23,8 @@ const GameWindow = ({ gameState }: GameWindowProps): JSX.Element => {
     >
       <Layer>
         <GameBackground width={windowSize} height={windowSize} />
-        <GameCharacter player={gameState.player} tileSize={tileSize} />
-        <GameObjective
-          objectivePos={gameState.objectivePos}
-          tileSize={tileSize}
-        />
+        <GameCharacter player={player} tileSize={tileSize} />
+        <GameObjective objectivePos={objectivePos} tileSize={tileSize} />
       </Layer>
     </Stage>
   );

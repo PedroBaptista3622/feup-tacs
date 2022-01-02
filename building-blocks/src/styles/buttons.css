@@ -1,0 +1,19 @@
+.btn-primary, .btn {
+  height: min-content;
+  border-radius: 15px;
+  color: #ffffff !important;
+}
+
+.Run.btn-primary {
+  width: 80%;
+
+  background-color: #6e9b34 !important;
+  border: #6e9b34 !important;
+}
+
+.Reset.btn {
+  width: 20%;
+
+  background-color: #bf616a !important;
+  border: #bf616a !important;
+}

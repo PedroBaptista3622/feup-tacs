@@ -79,7 +79,7 @@ export class Game {
     }
   };
 
-  turnPlayerRight = (): void => {
+  turnPlayerLeft = (): void => {
     switch (this.getPlayer().facing) {
       case "north": {
         this.player.facing = "east";
@@ -103,7 +103,7 @@ export class Game {
     }
   };
 
-  turnPlayerLeft = (): void => {
+  turnPlayerRight = (): void => {
     switch (this.getPlayer().facing) {
       case "north": {
         this.player.facing = "west";

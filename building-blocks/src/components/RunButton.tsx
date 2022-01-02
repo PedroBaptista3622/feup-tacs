@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 
-import "../styles/run.css";
+const simulateNetworkRequest = () => {
+  return new Promise((resolve) => setTimeout(resolve, 500));
+};
 
-function simulateNetworkRequest() {
-  return new Promise((resolve) => setTimeout(resolve, 2000));
+interface RunButtonProps {
+  onActivation: () => void;
 }
 
-function RunButton(): JSX.Element {
+function RunButton({ onActivation }: RunButtonProps): JSX.Element {
   const [isLoading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -20,21 +22,20 @@ function RunButton(): JSX.Element {
 
   const handleClick = (): void => {
     if (!isLoading) {
+      onActivation();
       setLoading(true);
     }
   };
 
   return (
-    <div className="Run d-grid gap-2">
-      <Button
-        className="btn-outline-success"
-        disabled={isLoading}
-        onClick={handleClick}
-        size="lg"
-      >
-        {isLoading ? "Running…" : "Run"}
-      </Button>
-    </div>
+    <Button
+      className="Run btn-primary"
+      disabled={isLoading}
+      onClick={handleClick}
+      size="lg"
+    >
+      {isLoading ? "Running…" : "Run"}
+    </Button>
   );
 }
 
