@@ -63,12 +63,27 @@ const ActionBlock = ({ block }: ActionBlockProps): JSX.Element => {
           const numberInput: JSX.Element = (
             <input
               type="number"
+              className="block_argument"
               name={arg.displayName}
-              min={arg.min !== undefined ? arg.min : 1}
+              min={arg.min !== undefined ? arg.min : -10}
               max={arg.max !== undefined ? arg.max : 20}
               onChange={(e: React.ChangeEvent) => {
                 const target = e.target as HTMLInputElement;
-                arg.setNewValue(target.value);
+                const targetValue: number = parseInt(target.value);
+
+                let valueToSet: number = targetValue;
+
+                if (arg.min !== undefined) {
+                  console.log(targetValue)
+                  valueToSet = Math.max(arg.min, targetValue);
+                  console.log(valueToSet)
+                }
+
+                if (arg.max !== undefined) {
+                  valueToSet = Math.min(arg.max, valueToSet);
+                }
+
+                arg.setNewValue(valueToSet);
               }}
             ></input>
           );
@@ -78,6 +93,7 @@ const ActionBlock = ({ block }: ActionBlockProps): JSX.Element => {
       } else if (arg instanceof ClosedArgument) {
         const seletor: JSX.Element = (
           <select
+            className="block_argument"
             onChange={(e: React.ChangeEvent) => {
               const target = e.target as HTMLSelectElement;
               arg.setNewValue(target.value);
@@ -104,7 +120,7 @@ const ActionBlock = ({ block }: ActionBlockProps): JSX.Element => {
   return (
     <div onDrop={handleDrop} className={getClassNames(block)}>
       {block.getType()}
-      {createArgumentInputs()}
+      <div className="block_argument_section">{createArgumentInputs()}</div>
       {block instanceof RepeatNTimesBlock ? buildInnerBlocks(block) : <></>}
     </div>
   );

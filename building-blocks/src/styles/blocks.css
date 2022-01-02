@@ -41,3 +41,28 @@
 
   text-align: center;
 }
+
+.block_argument_section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.block_argument {
+  box-sizing: border-box;
+  max-width: 50%;
+
+  box-shadow: none;
+
+  background-color: #4c566a;
+  color: #eceff4;
+
+  padding: 6px 2px;
+  border: none;
+  border-radius: 8px;
+
+  font-weight: bold;
+
+  text-align: center;
+  width: min-content;
+}
