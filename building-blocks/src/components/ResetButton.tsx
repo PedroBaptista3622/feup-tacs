@@ -1,7 +1,5 @@
 import { Button } from "react-bootstrap";
 
-import "../styles/reset.css";
-
 interface ResetButtonProps {
   onActivation: () => void;
 }

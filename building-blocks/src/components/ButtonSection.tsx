@@ -1,4 +1,3 @@
-import "../styles/ButtonSection.css";
 import ResetButton from "./ResetButton";
 import RunButton from "./RunButton";
 
@@ -7,13 +6,16 @@ interface ButtonSectionProps {
   onRun: () => void;
 }
 
-function ButtonSection({ onReset, onRun }: ButtonSectionProps): JSX.Element {
+export const ButtonSection = ({
+  onReset,
+  onRun,
+}: ButtonSectionProps): JSX.Element => {
   return (
-    <div className="ButtonSection">
+    <div className="buttonSection Buttons">
       <ResetButton onActivation={onReset} />
       <RunButton onActivation={onRun} />
     </div>
   );
-}
+};
 
 export default ButtonSection;

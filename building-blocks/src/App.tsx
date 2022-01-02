@@ -4,15 +4,20 @@ import BlocksComponent from "./components/BlocksComponent";
 import PlaygroundComponent from "./components/PlaygroundComponent";
 import CodeComponent from "./components/CodeComponent";
 
-import "./styles/index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+
+import "./styles/index.css";
+import "./styles/sections.css";
+import "./styles/blocks.css";
+import "./styles/buttons.css";
+
 import { CodeBlock } from "./codeBlocks/CodeBlock";
 import { MoveBlock } from "./codeBlocks/MoveBlock";
 import { TurnBlock } from "./codeBlocks/TurnBlock";
-import ButtonSection from "./components/ButtonSection";
+import { ButtonSection } from "./components/ButtonSection";
 import { Component } from "react";
 import { GameState, Player, Position } from "./Types";
-import dragula from "dragula";
+import { RepeatNTimesBlock } from "./codeBlocks/RepeateBlock";
 
 interface AppProps {}
 interface AppState {
@@ -49,10 +54,14 @@ export class App extends Component<AppProps, AppState> {
     newCodeBlocksState.push(new MoveBlock());
     newCodeBlocksState.push(new MoveBlock());
     newCodeBlocksState.push(new MoveBlock());
-    newCodeBlocksState.push(new TurnBlock("right"));
+    newCodeBlocksState.push(new TurnBlock());
     newCodeBlocksState.push(new MoveBlock());
     newCodeBlocksState.push(new MoveBlock());
     newCodeBlocksState.push(new MoveBlock());
+
+    const repBlock = new RepeatNTimesBlock();
+    repBlock.buildAddBlock("Move");
+    newCodeBlocksState.push(repBlock);
 
     this.setCodeBlocksState(newCodeBlocksState);
   };
@@ -91,6 +100,12 @@ export class App extends Component<AppProps, AppState> {
     this.resetState();
   };
 
+  appendCodeBlock = (block: CodeBlock) => {
+    const currentBlocks: CodeBlock[] = this.state.codeBlocks;
+    currentBlocks.push(block);
+    this.setState({ codeBlocks: currentBlocks });
+  };
+
   componentDidMount() {
     this.testCodeBlocks();
 
@@ -99,20 +114,13 @@ export class App extends Component<AppProps, AppState> {
         this.setState({
           playerState: this.g.getPlayer(),
         }),
-      1000
+      1000 / 30
     );
-
-    let left = document.getElementById('left');
-    let right = document.getElementById('right');
-
-    if(left != null && right != null)
-      dragula([left, right]);
   }
 
   componentWillUnmount() {
     clearInterval(this.interval);
   }
-
 
   render() {
     return (
@@ -125,7 +133,10 @@ export class App extends Component<AppProps, AppState> {
           }}
         />
         <BlocksComponent />
-        <PlaygroundComponent />
+        <PlaygroundComponent
+          appendCodeBlock={this.appendCodeBlock}
+          codeBlocks={this.state.codeBlocks}
+        />
         <CodeComponent codeBlocks={this.state.codeBlocks} />
         <ButtonSection onReset={this.reset} onRun={this.generateAndRunCode} />
       </div>

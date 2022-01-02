@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 
-import "../styles/run.css";
-
 const simulateNetworkRequest = () => {
   return new Promise((resolve) => setTimeout(resolve, 500));
 };
