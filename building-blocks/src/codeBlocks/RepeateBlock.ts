@@ -23,7 +23,7 @@ export class RepeatNTimesBlock implements HolderCodeBlock {
     return innerCodeStatements.join(" ");
   };
 
-  getDisplayInfo = (): string => "Repeate WIP";
+  getDisplayInfo = (): string => "Repeate";
 
   getType = (): BlockType => "Repeat";
 

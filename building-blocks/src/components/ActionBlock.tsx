@@ -59,6 +59,22 @@ const ActionBlock = ({ block }: ActionBlockProps): JSX.Element => {
 
     argumentList.forEach((arg) => {
       if (arg instanceof OpenArgument) {
+        if (arg.type === "number") {
+          const numberInput: JSX.Element = (
+            <input
+              type="number"
+              name={arg.displayName}
+              min={arg.min !== undefined ? arg.min : 1}
+              max={arg.max !== undefined ? arg.max : 20}
+              onChange={(e: React.ChangeEvent) => {
+                const target = e.target as HTMLInputElement;
+                arg.setNewValue(target.value);
+              }}
+            ></input>
+          );
+
+          argumentElements.push(numberInput);
+        }
       } else if (arg instanceof ClosedArgument) {
         const seletor: JSX.Element = (
           <select
@@ -68,7 +84,10 @@ const ActionBlock = ({ block }: ActionBlockProps): JSX.Element => {
             }}
             name={arg.displayName}
           >
-            <option hidden disabled selected> -- select an option -- </option>
+            <option hidden disabled selected>
+              {" "}
+              -- select an option --{" "}
+            </option>
             {arg.possibleValues.map((val) => (
               <option value={val}>{val}</option>
             ))}
