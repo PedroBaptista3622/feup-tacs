@@ -2,6 +2,7 @@ import { CodeBlock } from "../codeBlocks/CodeBlock";
 import { MoveBlock } from "../codeBlocks/MoveBlock";
 import { RepeatNTimesBlock } from "../codeBlocks/RepeateBlock";
 import { TurnBlock } from "../codeBlocks/TurnBlock";
+import { WaitBlock } from "../codeBlocks/WaitBlock";
 import { BlockType } from "../Types";
 
 export const buildCodeBlock = (blockType: BlockType): CodeBlock => {
@@ -14,6 +15,9 @@ export const buildCodeBlock = (blockType: BlockType): CodeBlock => {
     }
     case "Turn": {
       return new TurnBlock();
+    }
+    case "Wait" : {
+      return new WaitBlock();
     }
   }
 };

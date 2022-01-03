@@ -126,4 +126,8 @@ export class Game {
       }
     }
   };
+
+  stopPlayer = () : void => {
+    console.log("I am waiting");
+  };
 }
