@@ -46,6 +46,10 @@ export class App extends Component<AppProps, AppState> {
     };
   }
 
+  sleep = (ms: number) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  };
+
   setCodeBlocksState = (newState: CodeBlock[]) => {
     this.setState({ codeBlocks: newState });
   };
@@ -90,12 +94,13 @@ export class App extends Component<AppProps, AppState> {
     return code;
   };
 
-  generateAndRunCode = (): void => {
+  generateAndRunCode = async () => {
     this.setState({ isCodeRunning: true });
 
-    const code = this.generateCodeFromBlocks().join("");
-    console.log(code);
-    eval(code);
+    for (let i = 0; i < this.state.codeBlocks.length; i++) {
+      eval(this.state.codeBlocks[i].generateCode());
+      await this.sleep(1000);
+    }
 
     this.setState({ isCodeRunning: false });
   };
