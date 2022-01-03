@@ -4,16 +4,18 @@ import RunButton from "./RunButton";
 interface ButtonSectionProps {
   onReset: () => void;
   onRun: () => void;
+  isCodeReady: boolean;
 }
 
 export const ButtonSection = ({
   onReset,
   onRun,
+  isCodeReady,
 }: ButtonSectionProps): JSX.Element => {
   return (
     <div className="buttonSection Buttons">
       <ResetButton onActivation={onReset} />
-      <RunButton onActivation={onRun} />
+      <RunButton isCodeReady={isCodeReady} onActivation={onRun} />
     </div>
   );
 };

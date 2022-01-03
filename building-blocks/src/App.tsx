@@ -48,6 +48,14 @@ export class App extends Component<AppProps, AppState> {
     this.setState({ codeBlocks: newState });
   };
 
+  isCodeReady = (): boolean => {
+    const codeBlockState = this.state.codeBlocks;
+    return (
+      codeBlockState.length > 0 &&
+      codeBlockState.every((block) => block.isComplete())
+    );
+  };
+
   testCodeBlocks = () => {
     const newCodeBlocksState: CodeBlock[] = [];
 
@@ -138,7 +146,11 @@ export class App extends Component<AppProps, AppState> {
           codeBlocks={this.state.codeBlocks}
         />
         <CodeComponent codeBlocks={this.state.codeBlocks} />
-        <ButtonSection onReset={this.reset} onRun={this.generateAndRunCode} />
+        <ButtonSection
+          onReset={this.reset}
+          onRun={this.generateAndRunCode}
+          isCodeReady={this.isCodeReady()}
+        />
       </div>
     );
   }
