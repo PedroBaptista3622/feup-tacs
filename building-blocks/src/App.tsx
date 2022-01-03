@@ -25,6 +25,7 @@ interface AppState {
   playerState: Player;
   objetiveState: Position;
   codeBlocks: CodeBlock[];
+  isCodeRunning: boolean;
 }
 
 export class App extends Component<AppProps, AppState> {
@@ -41,6 +42,7 @@ export class App extends Component<AppProps, AppState> {
       playerState: this.g.getPlayer(),
       objetiveState: this.g.getObjectivePos(),
       codeBlocks: [],
+      isCodeRunning: false,
     };
   }
 
@@ -89,9 +91,13 @@ export class App extends Component<AppProps, AppState> {
   };
 
   generateAndRunCode = (): void => {
+    this.setState({ isCodeRunning: true });
+
     const code = this.generateCodeFromBlocks().join("");
     console.log(code);
     eval(code);
+
+    this.setState({ isCodeRunning: false });
   };
 
   calcOptimization = (): void => {
@@ -104,6 +110,7 @@ export class App extends Component<AppProps, AppState> {
       playerState: this.g.getPlayer(),
       objetiveState: this.g.getObjectivePos(),
       codeBlocks: [],
+      isCodeRunning: false,
     });
   };
 
@@ -154,13 +161,17 @@ export class App extends Component<AppProps, AppState> {
           codeBlocks={this.state.codeBlocks}
         />
         <CodeComponent codeBlocks={this.state.codeBlocks} />
-        <ButtonSection
-          onReset={this.reset}
-          onRun={this.generateAndRunCode}
-          isCodeReady={this.isCodeReady()}
-          onOptimize={this.calcOptimization}
-          isGameOver={this.isGameOver()}
-        />
+        {!this.state.isCodeRunning ? (
+          <ButtonSection
+            onReset={this.reset}
+            onRun={this.generateAndRunCode}
+            isCodeReady={this.isCodeReady()}
+            onOptimize={this.calcOptimization}
+            isGameOver={this.isGameOver()}
+          />
+        ) : (
+          <></>
+        )}
       </div>
     );
   }
