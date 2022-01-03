@@ -56,6 +56,10 @@ export class App extends Component<AppProps, AppState> {
     );
   };
 
+  isGameOver = (): boolean =>
+    this.state.playerState.position.x === this.state.objetiveState.x &&
+    this.state.playerState.position.y === this.state.objetiveState.y;
+
   testCodeBlocks = () => {
     const newCodeBlocksState: CodeBlock[] = [];
 
@@ -88,6 +92,10 @@ export class App extends Component<AppProps, AppState> {
     const code = this.generateCodeFromBlocks().join("");
     console.log(code);
     eval(code);
+  };
+
+  calcOptimization = (): void => {
+    console.log("[WIP] OPTIMIZE");
   };
 
   resetState = () => {
@@ -150,6 +158,8 @@ export class App extends Component<AppProps, AppState> {
           onReset={this.reset}
           onRun={this.generateAndRunCode}
           isCodeReady={this.isCodeReady()}
+          onOptimize={this.calcOptimization}
+          isGameOver={this.isGameOver()}
         />
       </div>
     );
