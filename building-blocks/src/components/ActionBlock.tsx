@@ -19,7 +19,7 @@ const ActionBlock = ({ block, removeBlock }: ActionBlockProps): JSX.Element => {
 
     block.getInnerBlocks().forEach((val: CodeBlock) => {
       innerBlocks.push(
-        <div className={getClassNames(val)}>{val.getType()}</div>
+        <ActionBlock block={val} removeBlock={block.removeInnerBlock} />
       );
     });
 
@@ -28,6 +28,7 @@ const ActionBlock = ({ block, removeBlock }: ActionBlockProps): JSX.Element => {
 
   const handleDrop = (dragEvent: React.DragEvent) => {
     dragEvent.preventDefault();
+    dragEvent.stopPropagation();
 
     if (dragEvent !== null && dragEvent.dataTransfer !== null) {
       const blockTypeTransfered: string =
