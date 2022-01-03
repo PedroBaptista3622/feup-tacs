@@ -78,9 +78,7 @@ const ActionBlock = ({ block, removeBlock }: ActionBlockProps): JSX.Element => {
                 let valueToSet: number = targetValue;
 
                 if (arg.min !== undefined) {
-                  console.log(targetValue);
                   valueToSet = Math.max(arg.min, targetValue);
-                  console.log(valueToSet);
                 }
 
                 if (arg.max !== undefined) {
