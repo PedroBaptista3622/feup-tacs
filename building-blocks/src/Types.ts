@@ -1,3 +1,5 @@
+import { EntityNameOrEntityNameExpression } from "typescript";
+
 export type FacingDirection = "north" | "west" | "east" | "south";
 
 export type RotateTo = "right" | "left";
@@ -8,6 +10,11 @@ export type Position = {
 };
 
 export type Player = {
+  facing: FacingDirection;
+  position: Position;
+};
+
+export type Enemy = {
   facing: FacingDirection;
   position: Position;
 };
@@ -45,6 +52,7 @@ export type GameState = [
 export type FullGameState = {
   state: GameState;
   player: Player;
+  enemy: Enemy;
   objectivePos: Position;
 };
 

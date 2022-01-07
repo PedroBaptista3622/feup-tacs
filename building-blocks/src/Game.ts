@@ -1,8 +1,9 @@
-import { FullGameState, GameState, Player, Position } from "./Types";
+import { FullGameState, GameState, Player, Enemy, Position } from "./Types";
 
 export class Game {
   state: GameState;
   player: Player;
+  enemy: Enemy;
   objectivePos: Position;
 
   constructor() {
@@ -25,6 +26,11 @@ export class Game {
       position: { x: 1, y: 1 },
     };
 
+    this.enemy = {
+      facing: "south",
+      position: { x:4, y: 4 }, 
+    }
+
     this.objectivePos = { x: 9, y: 1 };
   }
 
@@ -33,6 +39,7 @@ export class Game {
     return {
       state: this.state,
       player: this.player,
+      enemy: this.enemy,
       objectivePos: this.objectivePos,
     };
   };
@@ -40,6 +47,8 @@ export class Game {
   getState = (): GameState => this.state;
 
   getPlayer = (): Player => this.player;
+
+  getEnemy = (): Enemy => this.enemy;
 
   getObjectivePos = (): Position => this.objectivePos;
 
