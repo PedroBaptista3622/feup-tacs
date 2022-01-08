@@ -3,7 +3,7 @@ import { Game } from "./Game";
 import BlocksComponent from "./components/BlocksComponent";
 import PlaygroundComponent from "./components/PlaygroundComponent";
 import CodeComponent from "./components/CodeComponent";
-
+import { CrossOver } from "./utils/CrossOver";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./styles/index.css";
@@ -72,14 +72,45 @@ export class App extends Component<AppProps, AppState> {
     newCodeBlocksState.push(new MoveBlock());
     newCodeBlocksState.push(new MoveBlock());
     newCodeBlocksState.push(new MoveBlock());
-    newCodeBlocksState.push(new TurnBlock());
+    let c = new TurnBlock();
+    c.setRotateTo("right");
+    newCodeBlocksState.push(c);
     newCodeBlocksState.push(new MoveBlock());
     newCodeBlocksState.push(new MoveBlock());
     newCodeBlocksState.push(new MoveBlock());
 
-    const repBlock = new RepeatNTimesBlock();
+    let repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(6);
     repBlock.buildAddBlock("Move");
     newCodeBlocksState.push(repBlock);
+
+    c = new TurnBlock();
+    c.setRotateTo("left");
+    newCodeBlocksState.push(c);
+
+    repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(3);
+    repBlock.buildAddBlock("Move");
+    newCodeBlocksState.push(repBlock);
+
+    c = new TurnBlock();
+    c.setRotateTo("right");
+    newCodeBlocksState.push(c);
+
+    repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(4);
+    repBlock.buildAddBlock("Move");
+    newCodeBlocksState.push(repBlock);
+
+     c = new TurnBlock();
+     c.setRotateTo("right");
+     newCodeBlocksState.push(c);
+
+     repBlock = new RepeatNTimesBlock();
+     repBlock.setNumIter(6);
+     repBlock.buildAddBlock("Move");
+     newCodeBlocksState.push(repBlock);
+
 
     this.setCodeBlocksState(newCodeBlocksState);
   };
@@ -106,7 +137,7 @@ export class App extends Component<AppProps, AppState> {
   };
 
   calcOptimization = (): void => {
-    console.log("[WIP] OPTIMIZE");
+    CrossOver(this.state.codeBlocks);
   };
 
   resetState = () => {

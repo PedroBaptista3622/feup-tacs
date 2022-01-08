@@ -30,7 +30,7 @@ const BlocksMutationFunction = (blocks: String[]): String[] => {
     const newBlocks: String[] = blocks
     const r = Math.random()
 
-    if (r < 0.3) {
+    if (r < 0.4) {
         //remove
         newBlocks.splice(Math.floor(Math.random() * newBlocks.length), 1);
     } else if (r < 0.6) {
@@ -40,6 +40,10 @@ const BlocksMutationFunction = (blocks: String[]): String[] => {
         //add new
         newBlocks.push(getRandomBlock())
 
+    if (newBlocks == null) {
+        console.error('é daqui!');
+        
+    }
     return newBlocks
 }
 
@@ -84,9 +88,11 @@ const CrossOverFunction = (blocksA: String[], blocksB: String[]): String[] => {
         }
     });
 
+    if (crossover == null) {
+        console.error('é cross!');
+    }
+
     return crossover
-
-
 }
 
 const reachesGoal = (path: String[]): boolean => {
@@ -95,9 +101,10 @@ const reachesGoal = (path: String[]): boolean => {
 }
 
 const FitnessFunction = (path: String[]): number => {
-
+    console.log(path)
+    if (!(path instanceof Array)) { path = [path] }
     // to determine the fitness number.  Higher is better, lower is worse.
-    if (!reachesGoal(path)) { return 0 }
+    if (path === null || !reachesGoal(path)) { return 0 }
 
     return 1 / path.length;
 }
@@ -105,6 +112,7 @@ const FitnessFunction = (path: String[]): number => {
 export const CrossOver = (codeblocks: CodeBlock[]): void => {
 
     const god = transformCodeBlocks(codeblocks)
+    console.log(god)
 
     const config = {
         mutationFunction: BlocksMutationFunction,
@@ -112,12 +120,12 @@ export const CrossOver = (codeblocks: CodeBlock[]): void => {
         fitnessFunction: FitnessFunction,
         //doesABeatBFunction: yourCompetitionFunction, //To add diversity use the doesABeatBFunction function instead of the fitnessFunction and only allow A to beat B if A is more fit than B and B is close enough.
         population: [god],
-        populationSize: 500 	// defaults to 100
+        populationSize: 10000 	// defaults to 100
     }
 
     const GeneticAlgorithmConstructor = require('geneticalgorithm')
     const geneticalgorithm = GeneticAlgorithmConstructor(config)
 
-    const best = geneticalgorithm.evolve().best();
-    console.log(best)
+    const best: String[] = geneticalgorithm.evolve().best();
+    console.log("best = " + best + 'ss ' + best.length)
 }
