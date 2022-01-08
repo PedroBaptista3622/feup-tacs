@@ -2,6 +2,7 @@ import { CodeBlock } from "../codeBlocks/CodeBlock";
 import { MoveBlock } from "../codeBlocks/MoveBlock";
 import { RepeatNTimesBlock } from "../codeBlocks/RepeateBlock";
 import { TurnBlock } from "../codeBlocks/TurnBlock";
+import { WaitBlock } from "../codeBlocks/WaitBlock";
 import Block from "./Block";
 
 const BlocksComponent = () => {
@@ -9,6 +10,7 @@ const BlocksComponent = () => {
     new MoveBlock(),
     new TurnBlock(),
     new RepeatNTimesBlock(),
+    new WaitBlock(),
   ];
 
   const blockList: JSX.Element[] = [];
