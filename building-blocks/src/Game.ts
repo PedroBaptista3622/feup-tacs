@@ -127,7 +127,25 @@ export class Game {
     }
   };
 
-  stopPlayer = () : void => {
+  stopPlayer = (): void => {
     console.log("I am waiting");
   };
+
+  runSimpleGame = (path: String[]): boolean => {
+
+    path.forEach((block) => {
+      if (block === 'M') {
+        this.movePlayer()
+      }
+      if (block === 'L') {
+        this.turnPlayerLeft()
+      }
+      if (block === 'R') {
+        this.turnPlayerRight()
+      }
+    })
+
+    return this.player.position === this.getObjectivePos()
+
+  }
 }

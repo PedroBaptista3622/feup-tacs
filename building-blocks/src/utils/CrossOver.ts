@@ -2,13 +2,19 @@ import { CodeBlock } from "../codeBlocks/CodeBlock"
 import { RepeatNTimesBlock } from "../codeBlocks/RepeateBlock"
 import { TurnBlock } from "../codeBlocks/TurnBlock"
 import { MoveBlock } from "../codeBlocks/MoveBlock"
+import { Game } from "../Game"
 
 const transformCodeBlocks = (codeBlocks: CodeBlock[]): String[] => {
     const newBlocks: String[] = []
 
     codeBlocks.forEach((block) => {
         if (block instanceof RepeatNTimesBlock) {
-            (transformCodeBlocks(block.getInnerBlocks())).forEach((b) => { newBlocks.push(b) })
+            const numInter = block.numIter
+            if (numInter !== undefined)
+                for (let i = 0; i < numInter; i++) {
+                    (transformCodeBlocks(block.getInnerBlocks())).forEach((b) => { newBlocks.push(b) })
+                }
+
         } else if (block instanceof TurnBlock) {
             block.rotateTo === 'left' ? newBlocks.push('L') : newBlocks.push('R')
         } else if (block instanceof MoveBlock) {
@@ -28,9 +34,10 @@ const BlocksMutationFunction = (blocks: String[]): String[] => {
         //remove
         newBlocks.splice(Math.floor(Math.random() * newBlocks.length), 1);
     } else if (r < 0.6) {
-        //substituir
+        //substitute
         newBlocks.splice(Math.floor(Math.random() * newBlocks.length), 1, getRandomBlock());
     } else
+        //add new
         newBlocks.push(getRandomBlock())
 
     return newBlocks
@@ -43,7 +50,7 @@ const getRandomBlock = (): String => {
         return "M"
     } else if (r < 0.6) {
         return "L"
-    } else return "T"
+    } else return "R"
 
 }
 
@@ -83,15 +90,14 @@ const CrossOverFunction = (blocksA: String[], blocksB: String[]): String[] => {
 }
 
 const reachesGoal = (path: String[]): boolean => {
-
-    return false;
+    const g = new Game()
+    return g.runSimpleGame(path)
 }
 
 const FitnessFunction = (path: String[]): number => {
 
-    if (!reachesGoal(path)) { return 0 }
-
     // to determine the fitness number.  Higher is better, lower is worse.
+    if (!reachesGoal(path)) { return 0 }
 
     return 1 / path.length;
 }
@@ -106,7 +112,7 @@ export const CrossOver = (codeblocks: CodeBlock[]): void => {
         fitnessFunction: FitnessFunction,
         //doesABeatBFunction: yourCompetitionFunction, //To add diversity use the doesABeatBFunction function instead of the fitnessFunction and only allow A to beat B if A is more fit than B and B is close enough.
         population: [god],
-        populationSize: 100 	// defaults to 100
+        populationSize: 500 	// defaults to 100
     }
 
     const GeneticAlgorithmConstructor = require('geneticalgorithm')
