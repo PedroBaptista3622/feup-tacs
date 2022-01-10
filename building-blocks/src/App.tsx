@@ -16,13 +16,14 @@ import { MoveBlock } from "./codeBlocks/MoveBlock";
 import { TurnBlock } from "./codeBlocks/TurnBlock";
 import { ButtonSection } from "./components/ButtonSection";
 import { Component } from "react";
-import { GameState, Player, Position } from "./Types";
+import { GameState, Player, Enemy, Position } from "./Types";
 import { RepeatNTimesBlock } from "./codeBlocks/RepeateBlock";
 
 interface AppProps {}
 interface AppState {
   gameState: GameState;
   playerState: Player;
+  enemyState: Enemy;
   objetiveState: Position;
   codeBlocks: CodeBlock[];
   isCodeRunning: boolean;
@@ -40,6 +41,7 @@ export class App extends Component<AppProps, AppState> {
     this.state = {
       gameState: this.g.getState(),
       playerState: this.g.getPlayer(),
+      enemyState: this.g.getEnemy(),
       objetiveState: this.g.getObjectivePos(),
       codeBlocks: [],
       isCodeRunning: false,
@@ -130,6 +132,7 @@ export class App extends Component<AppProps, AppState> {
 
     for (let i = 0; i < this.state.codeBlocks.length; i++) {
       eval(this.state.codeBlocks[i].generateCode());
+      this.g.moveEnemy();
       await this.sleep(1000);
     }
 
@@ -144,6 +147,7 @@ export class App extends Component<AppProps, AppState> {
     this.setState({
       gameState: this.g.getState(),
       playerState: this.g.getPlayer(),
+      enemyState: this.g.getEnemy(),
       objetiveState: this.g.getObjectivePos(),
       codeBlocks: [],
       isCodeRunning: false,
@@ -188,6 +192,7 @@ export class App extends Component<AppProps, AppState> {
           gameState={{
             state: this.state.gameState,
             player: this.state.playerState,
+            enemy: this.state.enemyState,
             objectivePos: this.state.objetiveState,
           }}
         />
