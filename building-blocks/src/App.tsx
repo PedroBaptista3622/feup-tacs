@@ -101,6 +101,7 @@ export class App extends Component<AppProps, AppState> {
 
     for (let i = 0; i < this.state.codeBlocks.length; i++) {
       eval(this.state.codeBlocks[i].generateCode());
+      this.g.moveEnemy();
       await this.sleep(1000);
     }
 

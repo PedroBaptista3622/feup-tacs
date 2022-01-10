@@ -142,7 +142,7 @@ export class Game {
   moveEnemy = (): void => {
     const currPos: Position = this.enemy.position;
     let targetPos: Position;
-
+    
     switch (this.getEnemy().facing) {
       case "north": {
         targetPos = { x: currPos.x, y: currPos.y - 1 };
@@ -160,7 +160,7 @@ export class Game {
       }
       case "east": {
         targetPos = { x: currPos.x + 1, y: currPos.y };
-        if(this.enemy.position.x === 6) {
+        if(this.enemy.position.x === 5) {
           this.enemy.facing = "north";
         }
         break;
