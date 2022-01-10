@@ -8,7 +8,7 @@ import enemy_back from "../assets/enemy/enemy_back.png";
 import enemy_right from "../assets/enemy/enemy_right.png";
 import enemy_left from "../assets/enemy/enemy_left.png";
 
-interface GameCharacterProps {
+interface GameEnemyProps {
     enemy: Enemy;
     tileSize: number;
 }
@@ -30,10 +30,10 @@ const getPSPath = (facing: FacingDirection): string => {
     }
   };
 
-  export const GameCharacter = ({
+  export const GameEnemy = ({
     enemy,
     tileSize,
-  }: GameCharacterProps) : JSX.Element => {
+  }: GameEnemyProps) : JSX.Element => {
     const [image] = useImage(getPSPath(enemy.facing));
     return (
       <Image

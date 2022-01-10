@@ -28,7 +28,7 @@ export class Game {
 
     this.enemy = {
       facing: "south",
-      position: { x:4, y: 4 }, 
+      position: { x:5, y: 1 }, 
     }
 
     this.objectivePos = { x: 9, y: 1 };
@@ -54,7 +54,10 @@ export class Game {
 
   // Utils
   isMoveValid = (nextPos: Position): boolean =>
-    this.state[nextPos.y][nextPos.x] === "p";
+    this.state[nextPos.y][nextPos.x] === "p" && (nextPos.x != this.enemy.position.x || nextPos.y != this.enemy.position.y);
+
+  isEnemyMoveValid = (nextPos: Position): boolean =>
+    this.state[nextPos.y][nextPos.x] === "p" && (nextPos.x != this.player.position.x || nextPos.y != this.player.position.y);
 
   // Actual functionality
   movePlayer = (): void => {
@@ -133,6 +136,49 @@ export class Game {
       default: {
         return;
       }
+    }
+  };
+
+  moveEnemy = (): void => {
+    const currPos: Position = this.enemy.position;
+    let targetPos: Position;
+
+    switch (this.getEnemy().facing) {
+      case "north": {
+        targetPos = { x: currPos.x, y: currPos.y - 1 };
+        if(this.state[targetPos.y][targetPos.x] === "w") {
+          this.enemy.facing = "west";
+        }
+        break;
+      }
+      case "south": {
+        targetPos = { x: currPos.x, y: currPos.y + 1 };
+        if(this.state[targetPos.y][targetPos.x] === "w") {
+          this.enemy.facing = "east";
+        }
+        break;
+      }
+      case "east": {
+        targetPos = { x: currPos.x + 1, y: currPos.y };
+        if(this.enemy.position.x === 6) {
+          this.enemy.facing = "north";
+        }
+        break;
+      }
+      case "west": {
+        targetPos = { x: currPos.x - 1, y: currPos.y };
+        if(this.state[targetPos.y][targetPos.x] === "w") {
+          this.enemy.facing = "south";
+        }
+        break;
+      }
+      default: {
+        return;
+      }
+    }
+
+    if (this.isEnemyMoveValid(targetPos)) {
+      this.enemy.position = targetPos;
     }
   };
 }
