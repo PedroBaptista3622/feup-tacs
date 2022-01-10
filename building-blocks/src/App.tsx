@@ -26,6 +26,7 @@ interface AppState {
   enemyState: Enemy;
   objetiveState: Position;
   codeBlocks: CodeBlock[];
+  isCodeRunning: boolean;
 }
 
 export class App extends Component<AppProps, AppState> {
@@ -43,8 +44,13 @@ export class App extends Component<AppProps, AppState> {
       enemyState: this.g.getEnemy(),
       objetiveState: this.g.getObjectivePos(),
       codeBlocks: [],
+      isCodeRunning: false,
     };
   }
+
+  sleep = (ms: number) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  };
 
   setCodeBlocksState = (newState: CodeBlock[]) => {
     this.setState({ codeBlocks: newState });
@@ -57,6 +63,10 @@ export class App extends Component<AppProps, AppState> {
       codeBlockState.every((block) => block.isComplete())
     );
   };
+
+  isGameOver = (): boolean =>
+    this.state.playerState.position.x === this.state.objetiveState.x &&
+    this.state.playerState.position.y === this.state.objetiveState.y;
 
   testCodeBlocks = () => {
     const newCodeBlocksState: CodeBlock[] = [];
@@ -86,10 +96,19 @@ export class App extends Component<AppProps, AppState> {
     return code;
   };
 
-  generateAndRunCode = (): void => {
-    const code = this.generateCodeFromBlocks().join("");
-    console.log(code);
-    eval(code);
+  generateAndRunCode = async () => {
+    this.setState({ isCodeRunning: true });
+
+    for (let i = 0; i < this.state.codeBlocks.length; i++) {
+      eval(this.state.codeBlocks[i].generateCode());
+      await this.sleep(1000);
+    }
+
+    this.setState({ isCodeRunning: false });
+  };
+
+  calcOptimization = (): void => {
+    console.log("[WIP] OPTIMIZE");
   };
 
   resetState = () => {
@@ -99,6 +118,7 @@ export class App extends Component<AppProps, AppState> {
       enemyState: this.g.getEnemy(),
       objetiveState: this.g.getObjectivePos(),
       codeBlocks: [],
+      isCodeRunning: false,
     });
   };
 
@@ -150,11 +170,17 @@ export class App extends Component<AppProps, AppState> {
           codeBlocks={this.state.codeBlocks}
         />
         <CodeComponent codeBlocks={this.state.codeBlocks} />
-        <ButtonSection
-          onReset={this.reset}
-          onRun={this.generateAndRunCode}
-          isCodeReady={this.isCodeReady()}
-        />
+        {!this.state.isCodeRunning ? (
+          <ButtonSection
+            onReset={this.reset}
+            onRun={this.generateAndRunCode}
+            isCodeReady={this.isCodeReady()}
+            onOptimize={this.calcOptimization}
+            isGameOver={this.isGameOver()}
+          />
+        ) : (
+          <></>
+        )}
       </div>
     );
   }

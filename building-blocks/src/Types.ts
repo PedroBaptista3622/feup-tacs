@@ -56,4 +56,4 @@ export type FullGameState = {
   objectivePos: Position;
 };
 
-export type BlockType = "Move" | "Turn" | "Repeat";
+export type BlockType = "Move" | "Turn" | "Repeat" | "Wait";

@@ -54,10 +54,10 @@ export class Game {
 
   // Utils
   isMoveValid = (nextPos: Position): boolean =>
-    this.state[nextPos.y][nextPos.x] === "p" && (nextPos.x != this.enemy.position.x || nextPos.y != this.enemy.position.y);
+    this.state[nextPos.y][nextPos.x] === "p" && (nextPos.x !== this.enemy.position.x || nextPos.y !== this.enemy.position.y);
 
   isEnemyMoveValid = (nextPos: Position): boolean =>
-    this.state[nextPos.y][nextPos.x] === "p" && (nextPos.x != this.player.position.x || nextPos.y != this.player.position.y);
+    this.state[nextPos.y][nextPos.x] === "p" && (nextPos.x !== this.player.position.x || nextPos.y !== this.player.position.y);
 
   // Actual functionality
   movePlayer = (): void => {
@@ -180,5 +180,9 @@ export class Game {
     if (this.isEnemyMoveValid(targetPos)) {
       this.enemy.position = targetPos;
     }
+  }
+  
+  stopPlayer = () : void => {
+    console.log("I am waiting");
   };
 }
