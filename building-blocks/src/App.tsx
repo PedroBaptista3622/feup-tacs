@@ -18,6 +18,7 @@ import { ButtonSection } from "./components/ButtonSection";
 import { Component } from "react";
 import { GameState, Player, Enemy, Position } from "./Types";
 import { RepeatNTimesBlock } from "./codeBlocks/RepeateBlock";
+import { WaitBlock } from "./codeBlocks/WaitBlock";
 
 interface AppProps {}
 interface AppState {
@@ -71,23 +72,73 @@ export class App extends Component<AppProps, AppState> {
   testCodeBlocks = () => {
     const newCodeBlocksState: CodeBlock[] = [];
 
-    newCodeBlocksState.push(new MoveBlock());
-    newCodeBlocksState.push(new MoveBlock());
-    newCodeBlocksState.push(new MoveBlock());
+    let repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(3);
+    repBlock.buildAddBlock("Move");
+    newCodeBlocksState.push(repBlock);
+
     let c = new TurnBlock();
     c.setRotateTo("right");
     newCodeBlocksState.push(c);
-    newCodeBlocksState.push(new MoveBlock());
-    newCodeBlocksState.push(new MoveBlock());
-    newCodeBlocksState.push(new MoveBlock());
 
-    let repBlock = new RepeatNTimesBlock();
-    repBlock.setNumIter(6);
+    repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(2);
     repBlock.buildAddBlock("Move");
     newCodeBlocksState.push(repBlock);
 
     c = new TurnBlock();
     c.setRotateTo("left");
+    newCodeBlocksState.push(c);
+
+    repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(5);
+    repBlock.buildAddBlock("Move");
+    newCodeBlocksState.push(repBlock);
+
+    c = new TurnBlock();
+    c.setRotateTo("right");
+    newCodeBlocksState.push(c);
+
+    let w = new WaitBlock();
+    newCodeBlocksState.push(w);
+    newCodeBlocksState.push(w);
+    newCodeBlocksState.push(w);
+    newCodeBlocksState.push(w);
+
+    repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(2);
+    repBlock.buildAddBlock("Move");
+    newCodeBlocksState.push(repBlock);
+
+    c = new TurnBlock();
+    c.setRotateTo("right");
+    newCodeBlocksState.push(c);
+
+    repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(3);
+    repBlock.buildAddBlock("Move");
+    newCodeBlocksState.push(repBlock);
+
+    c = new TurnBlock();
+    c.setRotateTo("left");
+    newCodeBlocksState.push(c);
+
+    repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(1);
+    repBlock.buildAddBlock("Move");
+    newCodeBlocksState.push(repBlock);
+
+    c = new TurnBlock();
+    c.setRotateTo("left");
+    newCodeBlocksState.push(c);
+
+    repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(1);
+    repBlock.buildAddBlock("Move");
+    newCodeBlocksState.push(repBlock);
+
+    c = new TurnBlock();
+    c.setRotateTo("right");
     newCodeBlocksState.push(c);
 
     repBlock = new RepeatNTimesBlock();
@@ -100,19 +151,9 @@ export class App extends Component<AppProps, AppState> {
     newCodeBlocksState.push(c);
 
     repBlock = new RepeatNTimesBlock();
-    repBlock.setNumIter(4);
+    repBlock.setNumIter(6);
     repBlock.buildAddBlock("Move");
     newCodeBlocksState.push(repBlock);
-
-     c = new TurnBlock();
-     c.setRotateTo("right");
-     newCodeBlocksState.push(c);
-
-     repBlock = new RepeatNTimesBlock();
-     repBlock.setNumIter(6);
-     repBlock.buildAddBlock("Move");
-     newCodeBlocksState.push(repBlock);
-
 
     this.setCodeBlocksState(newCodeBlocksState);
   };
@@ -149,7 +190,7 @@ export class App extends Component<AppProps, AppState> {
       playerState: this.g.getPlayer(),
       enemyState: this.g.getEnemy(),
       objetiveState: this.g.getObjectivePos(),
-      codeBlocks: [],
+      //codeBlocks: [],
       isCodeRunning: false,
     });
   };

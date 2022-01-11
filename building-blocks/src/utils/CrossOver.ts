@@ -3,6 +3,7 @@ import { RepeatNTimesBlock } from "../codeBlocks/RepeateBlock"
 import { TurnBlock } from "../codeBlocks/TurnBlock"
 import { MoveBlock } from "../codeBlocks/MoveBlock"
 import { Game } from "../Game"
+import { WaitBlock } from "../codeBlocks/WaitBlock"
 
 const transformCodeBlocks = (codeBlocks: CodeBlock[]): String[] => {
     const newBlocks: String[] = []
@@ -14,11 +15,12 @@ const transformCodeBlocks = (codeBlocks: CodeBlock[]): String[] => {
                 for (let i = 0; i < numInter; i++) {
                     (transformCodeBlocks(block.getInnerBlocks())).forEach((b) => { newBlocks.push(b) })
                 }
-
         } else if (block instanceof TurnBlock) {
             block.rotateTo === 'left' ? newBlocks.push('L') : newBlocks.push('R')
         } else if (block instanceof MoveBlock) {
             newBlocks.push('M')
+        } else if (block instanceof WaitBlock) {
+            newBlocks.push('W')
         }
     })
 
@@ -30,7 +32,7 @@ const BlocksMutationFunction = (blocks: String[]): String[] => {
     const newBlocks: String[] = blocks
     const r = Math.random()
 
-    if (r < 0.4) {
+    if (r < 0.3) {
         //remove
         newBlocks.splice(Math.floor(Math.random() * newBlocks.length), 1);
     } else if (r < 0.6) {
@@ -40,22 +42,21 @@ const BlocksMutationFunction = (blocks: String[]): String[] => {
         //add new
         newBlocks.push(getRandomBlock())
 
-    if (newBlocks == null) {
-        console.error('é daqui!');
-        
-    }
+    console.log("nBlocks")
+    console.log(newBlocks)
+
     return newBlocks
 }
 
 const getRandomBlock = (): String => {
-
     const r = Math.random()
-    if (r < 0.3) {
+    if (r < 0.25) {
         return "M"
-    } else if (r < 0.6) {
+    } else if (r < 0.5) {
         return "L"
-    } else return "R"
-
+    } else if (r < 0.75) {
+        return "R"
+    } else return "W"
 }
 
 
@@ -88,10 +89,6 @@ const CrossOverFunction = (blocksA: String[], blocksB: String[]): String[] => {
         }
     });
 
-    if (crossover == null) {
-        console.error('é cross!');
-    }
-
     return crossover
 }
 
@@ -101,6 +98,9 @@ const reachesGoal = (path: String[]): boolean => {
 }
 
 const FitnessFunction = (path: String[]): number => {
+
+    let second: String[] = ['M', 'M', 'M', 'R', 'M', 'M', 'L', 'M', 'M', 'M', 'M', 'M', 'R', 'W', 'W', 'W', 'W', 'M', 'M', 'R', 'M', 'M', 'M', 'L', 'M', 'L', 'M', 'R', 'M', 'M', 'M', 'R', 'M', 'M', 'M', 'M', 'M', 'M']
+
     console.log(path)
     if (!(path instanceof Array)) { path = [path] }
     // to determine the fitness number.  Higher is better, lower is worse.
@@ -112,6 +112,7 @@ const FitnessFunction = (path: String[]): number => {
 export const CrossOver = (codeblocks: CodeBlock[]): void => {
 
     const god = transformCodeBlocks(codeblocks)
+    const i = god.length
     console.log(god)
 
     const config = {
@@ -120,12 +121,13 @@ export const CrossOver = (codeblocks: CodeBlock[]): void => {
         fitnessFunction: FitnessFunction,
         //doesABeatBFunction: yourCompetitionFunction, //To add diversity use the doesABeatBFunction function instead of the fitnessFunction and only allow A to beat B if A is more fit than B and B is close enough.
         population: [god],
-        populationSize: 10000 	// defaults to 100
+        populationSize: 100 	// defaults to 100
     }
 
     const GeneticAlgorithmConstructor = require('geneticalgorithm')
     const geneticalgorithm = GeneticAlgorithmConstructor(config)
 
     const best: String[] = geneticalgorithm.evolve().best();
-    console.log("best = " + best + 'ss ' + best.length)
+    console.log("old size " + i)
+    console.log("best = " + best + 'size ' + best.length)
 }
