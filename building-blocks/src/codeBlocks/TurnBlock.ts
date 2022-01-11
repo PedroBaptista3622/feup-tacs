@@ -15,6 +15,8 @@ export class TurnBlock implements CodeBlock {
     }
   };
 
+  getDisplayCode = () => this.generateCode();
+
   getDisplayInfo = (): string => `Turn ${this.rotateTo}`;
 
   getType = (): BlockType => "Turn";

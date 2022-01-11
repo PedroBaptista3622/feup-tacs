@@ -5,6 +5,7 @@ export interface CodeBlock {
   getDisplayInfo: () => string;
   getType: () => BlockType;
   generateCode: () => string;
+  getDisplayCode : () => string;
   isComplete: () => boolean;
   canStoreOtherBlocks: () => boolean;
   generateArguments: () => Argument[];

@@ -18,6 +18,25 @@ export class RepeatNTimesBlock implements HolderCodeBlock {
 
     this.storedBlocks.forEach((block) => {
       innerCodeStatements.push(block.generateCode());
+      if (!(block instanceof RepeatNTimesBlock)) {
+        innerCodeStatements.push("this.g.moveEnemy();");
+        innerCodeStatements.push("await this.sleep(1000);");
+      }
+    });
+
+    return innerCodeStatements.join(" ");
+  };
+
+  getDisplayCode = () =>
+    `for (let i = 0; i < ${
+      this.numIter
+    }; i++) { ${this.generateInnerBlocksCodeDisplay()} }`;
+
+  generateInnerBlocksCodeDisplay = () => {
+    let innerCodeStatements: string[] = [];
+
+    this.storedBlocks.forEach((block) => {
+      innerCodeStatements.push(block.getDisplayCode());
     });
 
     return innerCodeStatements.join(" ");

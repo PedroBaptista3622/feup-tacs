@@ -5,7 +5,7 @@ type CodeBlockProps = {
 };
 
 const CodeBlock = ({ block }: CodeBlockProps): JSX.Element => {
-  return <div className="codeSection">{block.generateCode()}</div>;
+  return <div className="codeSection">{block.getDisplayCode()}</div>;
 };
 
 export default CodeBlock;
