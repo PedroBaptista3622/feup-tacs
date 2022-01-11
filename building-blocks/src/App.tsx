@@ -99,11 +99,26 @@ export class App extends Component<AppProps, AppState> {
   generateAndRunCode = async () => {
     this.setState({ isCodeRunning: true });
 
+    const code: string[] = [];
+
     for (let i = 0; i < this.state.codeBlocks.length; i++) {
-      eval(this.state.codeBlocks[i].generateCode());
-      this.g.moveEnemy();
-      await this.sleep(1000);
+      code.push(this.state.codeBlocks[i].generateCode());
+      code.push("this.g.moveEnemy();");
+      code.push("await this.sleep(1000);");
     }
+
+    // Builds the async function prototype where the code will be executed
+    const AsyncFunction = Object.getPrototypeOf(
+      async function () {}
+    ).constructor;
+
+    // Instantiates the function, whith the code on its body and sets this inside function
+    const actualFunction = new AsyncFunction(code.join(" ")).bind({
+      g: this.g,
+      sleep: this.sleep,
+    });
+
+    actualFunction();
 
     this.setState({ isCodeRunning: false });
   };
