@@ -28,22 +28,16 @@ const transformCodeBlocks = (codeBlocks: CodeBlock[]): String[] => {
 }
 
 const BlocksMutationFunction = (blocks: String[]): String[] => {
+    console.log("mutation")
 
     const newBlocks: String[] = blocks
     const r = Math.random()
 
-    if (r < 0.3) {
-        //remove
+    if (r < 0.4) {
         newBlocks.splice(Math.floor(Math.random() * newBlocks.length), 1);
-    } else if (r < 0.6) {
-        //substitute
-        newBlocks.splice(Math.floor(Math.random() * newBlocks.length), 1, getRandomBlock());
-    } else
-        //add new
-        newBlocks.push(getRandomBlock())
-
-    console.log("nBlocks")
-    console.log(newBlocks)
+    } else if (r < 0.8) {
+        newBlocks.splice(Math.floor(Math.random() * newBlocks.length), 1);
+    } else newBlocks.splice(Math.floor(Math.random() * newBlocks.length), 1, getRandomBlock());
 
     return newBlocks
 }
@@ -61,8 +55,27 @@ const getRandomBlock = (): String => {
 
 
 const CrossOverFunction = (blocksA: String[], blocksB: String[]): String[] => {
+    console.log("cross")
     let crossover: String[] = []
 
+    let i = 0
+    blocksA.forEach((block) => {
+        const r = Math.random()
+        if (r > 0.9) {
+            crossover.push(block)
+        } else {
+            crossover.push(blocksB[i] !== undefined ? blocksB[i] : block)
+        }
+        i++
+    })
+
+    return crossover;
+}
+
+/*
+const CrossOverFunction = (blocksA: String[], blocksB: String[]): String[] => {
+    let crossover: String[] = []
+ 
     //para cada caracter da solução final if (random > 0.5) a[pos] : b[pos]
     //if (random > 0.9) a[pos] : b[pos]
     let main: String[]
@@ -76,7 +89,7 @@ const CrossOverFunction = (blocksA: String[], blocksB: String[]): String[] => {
         main = blocksB
         temp = blocksA
     }
-
+ 
     r = Math.random()
     let index = 0
     main.forEach(block => {
@@ -88,10 +101,11 @@ const CrossOverFunction = (blocksA: String[], blocksB: String[]): String[] => {
             index >= temp.length ? crossover.push(block) : crossover.push(temp[index])
         }
     });
-
+    console.log(crossover)
+ 
     return crossover
 }
-
+*/
 const reachesGoal = (path: String[]): boolean => {
     const g = new Game()
     return g.runSimpleGame(path)
@@ -99,12 +113,12 @@ const reachesGoal = (path: String[]): boolean => {
 
 const FitnessFunction = (path: String[]): number => {
 
-    let second: String[] = ['M', 'M', 'M', 'R', 'M', 'M', 'L', 'M', 'M', 'M', 'M', 'M', 'R', 'W', 'W', 'W', 'W', 'M', 'M', 'R', 'M', 'M', 'M', 'L', 'M', 'L', 'M', 'R', 'M', 'M', 'M', 'R', 'M', 'M', 'M', 'M', 'M', 'M']
+    //let second: String[] = ['M', 'M', 'M', 'R', 'M', 'M', 'L', 'M', 'M', 'M', 'M', 'M', 'R', 'W', 'W', 'W', 'W', 'M', 'M', 'R', 'M', 'M', 'M', 'L', 'M', 'L', 'M', 'R', 'M', 'M', 'M', 'R', 'M', 'M', 'M', 'M', 'M', 'M']
 
-    console.log(path)
+    //console.log(path)
     if (!(path instanceof Array)) { path = [path] }
     // to determine the fitness number.  Higher is better, lower is worse.
-    if (path === null || !reachesGoal(path)) { return 0 }
+    if (path === null || !reachesGoal(path)) { return 0 } else console.log("boa!")
 
     return 1 / path.length;
 }
@@ -113,6 +127,7 @@ export const CrossOver = (codeblocks: CodeBlock[]): void => {
 
     const god = transformCodeBlocks(codeblocks)
     const i = god.length
+
     console.log(god)
 
     const config = {
@@ -120,8 +135,8 @@ export const CrossOver = (codeblocks: CodeBlock[]): void => {
         crossoverFunction: CrossOverFunction,
         fitnessFunction: FitnessFunction,
         //doesABeatBFunction: yourCompetitionFunction, //To add diversity use the doesABeatBFunction function instead of the fitnessFunction and only allow A to beat B if A is more fit than B and B is close enough.
-        population: [god],
-        populationSize: 100 	// defaults to 100
+        population: Array(100).fill(god),
+        populationSize: 5000	// defaults to 100
     }
 
     const GeneticAlgorithmConstructor = require('geneticalgorithm')
@@ -129,5 +144,10 @@ export const CrossOver = (codeblocks: CodeBlock[]): void => {
 
     const best: String[] = geneticalgorithm.evolve().best();
     console.log("old size " + i)
-    console.log("best = " + best + 'size ' + best.length)
+    console.log(god)
+    console.log("best = " + best + ' Size ' + best.length)
+
+    for (let i = 0; i < god.length; i++) {
+        console.log(god[i] + "/" + best[i])
+    }
 }

@@ -157,7 +157,7 @@ export class Game {
       }
     })
 
-    return this.player.position === this.getObjectivePos()
+    return this.player.position.x === this.getObjectivePos().x && this.player.position.y === this.getObjectivePos().y
 
   }
 
