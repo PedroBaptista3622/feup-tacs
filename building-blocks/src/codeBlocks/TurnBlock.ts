@@ -5,6 +5,10 @@ import { CodeBlock } from "./CodeBlock";
 export class TurnBlock implements CodeBlock {
   rotateTo: RotateTo | undefined;
 
+  constructor(rotateTo?: RotateTo | undefined) {
+    this.rotateTo = rotateTo;
+  }
+
   generateCode = () => {
     if (this.rotateTo === "left") {
       return "this.g.turnPlayerLeft();";

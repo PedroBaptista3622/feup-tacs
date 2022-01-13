@@ -8,6 +8,10 @@ export class RepeatNTimesBlock implements HolderCodeBlock {
   storedBlocks: CodeBlock[] = [];
   numIter: number | undefined = undefined;
 
+  constructor(numIter?: number | undefined) {
+    this.numIter = numIter;
+  }
+
   generateCode = () =>
     `for (let i = 0; i < ${
       this.numIter
