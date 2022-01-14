@@ -155,6 +155,10 @@ export class Game {
       if (block === 'R') {
         this.turnPlayerRight()
       }
+      if (block === 'W') {
+        this.stopPlayer()
+      }
+      this.moveEnemy()
     })
 
     return this.player.position.x === this.getObjectivePos().x && this.player.position.y === this.getObjectivePos().y

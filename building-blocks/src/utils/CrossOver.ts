@@ -27,9 +27,31 @@ const transformCodeBlocks = (codeBlocks: CodeBlock[]): String[] => {
     return newBlocks
 }
 
-const BlocksMutationFunction = (blocks: String[]): String[] => {
-    console.log("mutation")
+const transformToCodeBlocks = (path: String[]): CodeBlock[] => {
+    const codeBlocks: CodeBlock[] = []
+    let l = new TurnBlock();
+    l.setRotateTo("left")
+    let r = new TurnBlock();
+    r.setRotateTo("right")
 
+    path.forEach((block) => {
+        if (block === 'M') {
+            codeBlocks.push(new MoveBlock())
+        }
+        if (block === 'L') {
+            codeBlocks.push(l)
+        }
+        if (block === 'R') {
+            codeBlocks.push(r)
+        }
+        if (block === 'W') {
+            codeBlocks.push(new WaitBlock())
+        }
+    })
+    return codeBlocks
+}
+
+const BlocksMutationFunction = (blocks: String[]): String[] => {
     const newBlocks: String[] = blocks
     const r = Math.random()
 
@@ -55,13 +77,12 @@ const getRandomBlock = (): String => {
 
 
 const CrossOverFunction = (blocksA: String[], blocksB: String[]): String[] => {
-    console.log("cross")
     let crossover: String[] = []
 
     let i = 0
     blocksA.forEach((block) => {
         const r = Math.random()
-        if (r > 0.9) {
+        if (r > 0.85) {
             crossover.push(block)
         } else {
             crossover.push(blocksB[i] !== undefined ? blocksB[i] : block)
@@ -117,18 +138,18 @@ const FitnessFunction = (path: String[]): number => {
 
     //console.log(path)
     if (!(path instanceof Array)) { path = [path] }
-    // to determine the fitness number.  Higher is better, lower is worse.
-    if (path === null || !reachesGoal(path)) { return 0 } else console.log("boa!")
+    // to determine the fitness number. 
+    // Higher is better, lower is worse.
+    if (path === null || !reachesGoal(path)) { return 0 }
 
     return 1 / path.length;
 }
 
-export const CrossOver = (codeblocks: CodeBlock[]): void => {
+export const CrossOver = (codeblocks: CodeBlock[]): CodeBlock[] => {
 
     const god = transformCodeBlocks(codeblocks)
-    const i = god.length
 
-    console.log(god)
+    //console.log(god)
 
     const config = {
         mutationFunction: BlocksMutationFunction,
@@ -143,11 +164,14 @@ export const CrossOver = (codeblocks: CodeBlock[]): void => {
     const geneticalgorithm = GeneticAlgorithmConstructor(config)
 
     const best: String[] = geneticalgorithm.evolve().best();
-    console.log("old size " + i)
-    console.log(god)
-    console.log("best = " + best + ' Size ' + best.length)
+    //console.log("old size " + i)
+    //console.log(god)
+    //console.log("best = " + best + ' Size ' + best.length)
 
     for (let i = 0; i < god.length; i++) {
         console.log(god[i] + "/" + best[i])
     }
+
+    if (best.length < god.length) return transformToCodeBlocks(best)
+    else return transformToCodeBlocks(god)
 }

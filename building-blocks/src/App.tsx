@@ -196,7 +196,15 @@ export class App extends Component<AppProps, AppState> {
   };
 
   calcOptimization = (): void => {
-    CrossOver(this.state.codeBlocks);
+    const optimized: CodeBlock[] = CrossOver(this.state.codeBlocks);
+    this.setState({
+      gameState: this.g.getState(),
+      playerState: this.g.getPlayer(),
+      enemyState: this.g.getEnemy(),
+      objetiveState: this.g.getObjectivePos(),
+      codeBlocks: optimized,
+      isCodeRunning: false,
+    });
   };
 
   resetState = () => {
@@ -205,7 +213,7 @@ export class App extends Component<AppProps, AppState> {
       playerState: this.g.getPlayer(),
       enemyState: this.g.getEnemy(),
       objetiveState: this.g.getObjectivePos(),
-      //codeBlocks: [],
+      codeBlocks: [],
       isCodeRunning: false,
     });
   };
