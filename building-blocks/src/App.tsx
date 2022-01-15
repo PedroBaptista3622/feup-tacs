@@ -18,6 +18,7 @@ import { ButtonSection } from "./components/ButtonSection";
 import { Component } from "react";
 import { GameState, Player, Enemy, Position } from "./Types";
 import { RepeatNTimesBlock } from "./codeBlocks/RepeateBlock";
+import { optimizeCodeBlocks } from "./utils/CodeOptimizer";
 
 interface AppProps {}
 interface AppState {
@@ -150,7 +151,8 @@ export class App extends Component<AppProps, AppState> {
   appendCodeBlock = (block: CodeBlock) => {
     const currentBlocks: CodeBlock[] = this.state.codeBlocks;
     currentBlocks.push(block);
-    this.setState({ codeBlocks: currentBlocks });
+    const optimize: CodeBlock[] = optimizeCodeBlocks(currentBlocks);
+    this.setState({ codeBlocks: optimize });
   };
 
   componentDidMount() {
