@@ -19,6 +19,7 @@ import { Component } from "react";
 import { GameState, Player, Enemy, Position } from "./Types";
 import { RepeatNTimesBlock } from "./codeBlocks/RepeateBlock";
 import { WaitBlock } from "./codeBlocks/WaitBlock";
+import { optimizeCodeBlocks } from "./utils/CodeOptimizer";
 
 interface AppProps {}
 interface AppState {
@@ -99,11 +100,11 @@ export class App extends Component<AppProps, AppState> {
     c.setRotateTo("right");
     newCodeBlocksState.push(c);
 
-    let w = new WaitBlock();
+    /*  let w = new WaitBlock();
     newCodeBlocksState.push(w);
     newCodeBlocksState.push(w);
     newCodeBlocksState.push(w);
-    newCodeBlocksState.push(w);
+    newCodeBlocksState.push(w);*/
 
     repBlock = new RepeatNTimesBlock();
     repBlock.setNumIter(2);
@@ -173,8 +174,12 @@ export class App extends Component<AppProps, AppState> {
 
     const code: string[] = [];
 
-    for (let i = 0; i < this.state.codeBlocks.length; i++) {
-      code.push(this.state.codeBlocks[i].generateCode());
+    const optimizedBlocks: CodeBlock[] = optimizeCodeBlocks(
+      this.state.codeBlocks
+    );
+
+    for (let i = 0; i < optimizedBlocks.length; i++) {
+      code.push(optimizedBlocks[i].generateCode());
       code.push("this.g.moveEnemy();");
       code.push("await this.sleep(1000);");
     }

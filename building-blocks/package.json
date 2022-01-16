@@ -16,6 +16,7 @@
     "dragula": "^3.7.2",
     "geneticalgorithm": "^1.0.2",
     "konva": "^8.3.0",
+    "parsimmon": "^1.18.1",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.2",
     "react-dom": "^17.0.2",
@@ -52,6 +53,7 @@
     ]
   },
   "devDependencies": {
-    "@types/dragula": "^3.7.1"
+    "@types/dragula": "^3.7.1",
+    "@types/parsimmon": "^1.10.6"
   }
 }

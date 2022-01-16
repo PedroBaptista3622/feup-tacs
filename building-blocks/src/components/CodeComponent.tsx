@@ -1,5 +1,6 @@
 import CodeBlock from "./CodeBlock";
 import { CodeBlock as CodeBlockInterface } from "../codeBlocks/CodeBlock";
+import { optimizeCodeBlocks } from "../utils/CodeOptimizer";
 
 interface CodeComponentProps {
   codeBlocks: CodeBlockInterface[];
@@ -9,8 +10,8 @@ const buildCodeBlockComponents = (
   codeBlocks: CodeBlockInterface[]
 ): JSX.Element[] => {
   const componentList: JSX.Element[] = [];
-
-  codeBlocks.forEach((codeBlock) => {
+  const optimizedCode: CodeBlockInterface[] = optimizeCodeBlocks(codeBlocks);
+  optimizedCode.forEach((codeBlock) => {
     componentList.push(<CodeBlock block={codeBlock} />);
   });
 
