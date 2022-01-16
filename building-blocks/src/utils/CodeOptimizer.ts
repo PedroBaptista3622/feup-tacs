@@ -17,7 +17,6 @@ export const optimizeCodeBlocks = (codeBlocks: CodeBlock[]): CodeBlock[] => {
                 const code: string = `for (let i = 0; i < ${j + 1}; i++) { ${codeBlocks[i].generateCode()} }`
                 const forBlock: CodeBlock = lang.statement.tryParse(code);
                 codeOptimized.push(forBlock);
-                i = i + j;
                 j = 0;
             }
         }

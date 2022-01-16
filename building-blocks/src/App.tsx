@@ -27,6 +27,7 @@ interface AppState {
   enemyState: Enemy;
   objetiveState: Position;
   codeBlocks: CodeBlock[];
+  codeOptimized: CodeBlock[];
   isCodeRunning: boolean;
 }
 
@@ -45,6 +46,7 @@ export class App extends Component<AppProps, AppState> {
       enemyState: this.g.getEnemy(),
       objetiveState: this.g.getObjectivePos(),
       codeBlocks: [],
+      codeOptimized: [],
       isCodeRunning: false,
     };
   }
@@ -55,6 +57,7 @@ export class App extends Component<AppProps, AppState> {
 
   setCodeBlocksState = (newState: CodeBlock[]) => {
     this.setState({ codeBlocks: newState });
+    //this.setState({ codeOptimized: newState });
   };
 
   isCodeReady = (): boolean => {
@@ -135,6 +138,7 @@ export class App extends Component<AppProps, AppState> {
       enemyState: this.g.getEnemy(),
       objetiveState: this.g.getObjectivePos(),
       codeBlocks: [],
+      codeOptimized: [],
       isCodeRunning: false,
     });
   };
@@ -151,8 +155,9 @@ export class App extends Component<AppProps, AppState> {
   appendCodeBlock = (block: CodeBlock) => {
     const currentBlocks: CodeBlock[] = this.state.codeBlocks;
     currentBlocks.push(block);
+    this.setState({ codeBlocks: currentBlocks });
     const optimize: CodeBlock[] = optimizeCodeBlocks(currentBlocks);
-    this.setState({ codeBlocks: optimize });
+    this.setState({ codeOptimized: optimize });
   };
 
   componentDidMount() {
@@ -187,7 +192,7 @@ export class App extends Component<AppProps, AppState> {
           appendCodeBlock={this.appendCodeBlock}
           codeBlocks={this.state.codeBlocks}
         />
-        <CodeComponent codeBlocks={this.state.codeBlocks} />
+        <CodeComponent codeBlocks={this.state.codeOptimized} />
         {!this.state.isCodeRunning ? (
           <ButtonSection
             onReset={this.reset}
