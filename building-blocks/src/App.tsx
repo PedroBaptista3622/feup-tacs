@@ -3,7 +3,7 @@ import { Game } from "./Game";
 import BlocksComponent from "./components/BlocksComponent";
 import PlaygroundComponent from "./components/PlaygroundComponent";
 import CodeComponent from "./components/CodeComponent";
-
+import { CrossOver } from "./utils/CrossOver";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./styles/index.css";
@@ -18,6 +18,7 @@ import { ButtonSection } from "./components/ButtonSection";
 import { Component } from "react";
 import { GameState, Player, Enemy, Position } from "./Types";
 import { RepeatNTimesBlock } from "./codeBlocks/RepeateBlock";
+import { WaitBlock } from "./codeBlocks/WaitBlock";
 import { optimizeCodeBlocks } from "./utils/CodeOptimizer";
 
 interface AppProps {}
@@ -72,15 +73,86 @@ export class App extends Component<AppProps, AppState> {
   testCodeBlocks = () => {
     const newCodeBlocksState: CodeBlock[] = [];
 
-    newCodeBlocksState.push(new MoveBlock());
-    newCodeBlocksState.push(new MoveBlock());
-    newCodeBlocksState.push(new MoveBlock());
-    newCodeBlocksState.push(new TurnBlock());
-    newCodeBlocksState.push(new MoveBlock());
-    newCodeBlocksState.push(new MoveBlock());
-    newCodeBlocksState.push(new MoveBlock());
+    let repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(3);
+    repBlock.buildAddBlock("Move");
+    newCodeBlocksState.push(repBlock);
 
-    const repBlock = new RepeatNTimesBlock();
+    let c = new TurnBlock();
+    c.setRotateTo("right");
+    newCodeBlocksState.push(c);
+
+    repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(2);
+    repBlock.buildAddBlock("Move");
+    newCodeBlocksState.push(repBlock);
+
+    c = new TurnBlock();
+    c.setRotateTo("left");
+    newCodeBlocksState.push(c);
+
+    repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(5);
+    repBlock.buildAddBlock("Move");
+    newCodeBlocksState.push(repBlock);
+
+    c = new TurnBlock();
+    c.setRotateTo("right");
+    newCodeBlocksState.push(c);
+
+    /*  let w = new WaitBlock();
+    newCodeBlocksState.push(w);
+    newCodeBlocksState.push(w);
+    newCodeBlocksState.push(w);
+    newCodeBlocksState.push(w);*/
+
+    repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(2);
+    repBlock.buildAddBlock("Move");
+    newCodeBlocksState.push(repBlock);
+
+    c = new TurnBlock();
+    c.setRotateTo("right");
+    newCodeBlocksState.push(c);
+
+    repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(3);
+    repBlock.buildAddBlock("Move");
+    newCodeBlocksState.push(repBlock);
+
+    c = new TurnBlock();
+    c.setRotateTo("left");
+    newCodeBlocksState.push(c);
+
+    repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(1);
+    repBlock.buildAddBlock("Move");
+    newCodeBlocksState.push(repBlock);
+
+    c = new TurnBlock();
+    c.setRotateTo("left");
+    newCodeBlocksState.push(c);
+
+    repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(1);
+    repBlock.buildAddBlock("Move");
+    newCodeBlocksState.push(repBlock);
+
+    c = new TurnBlock();
+    c.setRotateTo("right");
+    newCodeBlocksState.push(c);
+
+    repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(3);
+    repBlock.buildAddBlock("Move");
+    newCodeBlocksState.push(repBlock);
+
+    c = new TurnBlock();
+    c.setRotateTo("right");
+    newCodeBlocksState.push(c);
+
+    repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(6);
     repBlock.buildAddBlock("Move");
     newCodeBlocksState.push(repBlock);
 
@@ -102,7 +174,9 @@ export class App extends Component<AppProps, AppState> {
 
     const code: string[] = [];
 
-    const optimizedBlocks: CodeBlock[] = optimizeCodeBlocks(this.state.codeBlocks);
+    const optimizedBlocks: CodeBlock[] = optimizeCodeBlocks(
+      this.state.codeBlocks
+    );
 
     for (let i = 0; i < optimizedBlocks.length; i++) {
       code.push(optimizedBlocks[i].generateCode());
@@ -127,7 +201,15 @@ export class App extends Component<AppProps, AppState> {
   };
 
   calcOptimization = (): void => {
-    console.log("[WIP] OPTIMIZE");
+    const optimized: CodeBlock[] = CrossOver(this.state.codeBlocks);
+    this.setState({
+      gameState: this.g.getState(),
+      playerState: this.g.getPlayer(),
+      enemyState: this.g.getEnemy(),
+      objetiveState: this.g.getObjectivePos(),
+      codeBlocks: optimized,
+      isCodeRunning: false,
+    });
   };
 
   resetState = () => {

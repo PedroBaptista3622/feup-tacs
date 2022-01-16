@@ -28,7 +28,7 @@ export class Game {
 
     this.enemy = {
       facing: "south",
-      position: { x:5, y: 1 }, 
+      position: { x: 5, y: 1 },
     }
 
     this.objectivePos = { x: 9, y: 1 };
@@ -139,35 +139,61 @@ export class Game {
     }
   };
 
+  stopPlayer = (): void => {
+    console.log("I am waiting");
+  };
+
+  runSimpleGame = (path: String[]): boolean => {
+
+    path.forEach((block) => {
+      if (block === 'M') {
+        this.movePlayer()
+      }
+      if (block === 'L') {
+        this.turnPlayerLeft()
+      }
+      if (block === 'R') {
+        this.turnPlayerRight()
+      }
+      if (block === 'W') {
+        this.stopPlayer()
+      }
+      this.moveEnemy()
+    })
+
+    return this.player.position.x === this.getObjectivePos().x && this.player.position.y === this.getObjectivePos().y
+
+  }
+
   moveEnemy = (): void => {
     const currPos: Position = this.enemy.position;
     let targetPos: Position;
-    
+
     switch (this.getEnemy().facing) {
       case "north": {
         targetPos = { x: currPos.x, y: currPos.y - 1 };
-        if(this.state[targetPos.y][targetPos.x] === "w") {
+        if (this.state[targetPos.y][targetPos.x] === "w") {
           this.enemy.facing = "west";
         }
         break;
       }
       case "south": {
         targetPos = { x: currPos.x, y: currPos.y + 1 };
-        if(this.state[targetPos.y][targetPos.x] === "w") {
+        if (this.state[targetPos.y][targetPos.x] === "w") {
           this.enemy.facing = "east";
         }
         break;
       }
       case "east": {
         targetPos = { x: currPos.x + 1, y: currPos.y };
-        if(this.enemy.position.x === 5) {
+        if (this.enemy.position.x === 5) {
           this.enemy.facing = "north";
         }
         break;
       }
       case "west": {
         targetPos = { x: currPos.x - 1, y: currPos.y };
-        if(this.state[targetPos.y][targetPos.x] === "w") {
+        if (this.state[targetPos.y][targetPos.x] === "w") {
           this.enemy.facing = "south";
         }
         break;
@@ -181,8 +207,4 @@ export class Game {
       this.enemy.position = targetPos;
     }
   }
-  
-  stopPlayer = () : void => {
-    console.log("I am waiting");
-  };
 }
