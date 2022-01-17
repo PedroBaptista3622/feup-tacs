@@ -3,7 +3,7 @@ import { Game } from "./Game";
 import BlocksComponent from "./components/BlocksComponent";
 import PlaygroundComponent from "./components/PlaygroundComponent";
 import CodeComponent from "./components/CodeComponent";
-
+import { CrossOver } from "./utils/CrossOver";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./styles/index.css";
@@ -12,19 +12,21 @@ import "./styles/blocks.css";
 import "./styles/buttons.css";
 
 import { CodeBlock } from "./codeBlocks/CodeBlock";
-import { MoveBlock } from "./codeBlocks/MoveBlock";
 import { TurnBlock } from "./codeBlocks/TurnBlock";
 import { ButtonSection } from "./components/ButtonSection";
 import { Component } from "react";
-import { GameState, Player, Position } from "./Types";
+import { GameState, Player, Enemy, Position } from "./Types";
 import { RepeatNTimesBlock } from "./codeBlocks/RepeateBlock";
+import { optimizeCodeBlocks } from "./utils/CodeOptimizer";
 
 interface AppProps {}
 interface AppState {
   gameState: GameState;
   playerState: Player;
+  enemyState: Enemy;
   objetiveState: Position;
   codeBlocks: CodeBlock[];
+  isCodeRunning: boolean;
 }
 
 export class App extends Component<AppProps, AppState> {
@@ -39,10 +41,16 @@ export class App extends Component<AppProps, AppState> {
     this.state = {
       gameState: this.g.getState(),
       playerState: this.g.getPlayer(),
+      enemyState: this.g.getEnemy(),
       objetiveState: this.g.getObjectivePos(),
       codeBlocks: [],
+      isCodeRunning: false,
     };
   }
+
+  sleep = (ms: number) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  };
 
   setCodeBlocksState = (newState: CodeBlock[]) => {
     this.setState({ codeBlocks: newState });
@@ -56,18 +64,93 @@ export class App extends Component<AppProps, AppState> {
     );
   };
 
+  isGameOver = (): boolean =>
+    this.state.playerState.position.x === this.state.objetiveState.x &&
+    this.state.playerState.position.y === this.state.objetiveState.y;
+
   testCodeBlocks = () => {
     const newCodeBlocksState: CodeBlock[] = [];
 
-    newCodeBlocksState.push(new MoveBlock());
-    newCodeBlocksState.push(new MoveBlock());
-    newCodeBlocksState.push(new MoveBlock());
-    newCodeBlocksState.push(new TurnBlock());
-    newCodeBlocksState.push(new MoveBlock());
-    newCodeBlocksState.push(new MoveBlock());
-    newCodeBlocksState.push(new MoveBlock());
+    let repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(3);
+    repBlock.buildAddBlock("Move");
+    newCodeBlocksState.push(repBlock);
 
-    const repBlock = new RepeatNTimesBlock();
+    let c = new TurnBlock();
+    c.setRotateTo("right");
+    newCodeBlocksState.push(c);
+
+    repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(2);
+    repBlock.buildAddBlock("Move");
+    newCodeBlocksState.push(repBlock);
+
+    c = new TurnBlock();
+    c.setRotateTo("left");
+    newCodeBlocksState.push(c);
+
+    repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(5);
+    repBlock.buildAddBlock("Move");
+    newCodeBlocksState.push(repBlock);
+
+    c = new TurnBlock();
+    c.setRotateTo("right");
+    newCodeBlocksState.push(c);
+
+    /*  let w = new WaitBlock();
+    newCodeBlocksState.push(w);
+    newCodeBlocksState.push(w);
+    newCodeBlocksState.push(w);
+    newCodeBlocksState.push(w);*/
+
+    repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(2);
+    repBlock.buildAddBlock("Move");
+    newCodeBlocksState.push(repBlock);
+
+    c = new TurnBlock();
+    c.setRotateTo("right");
+    newCodeBlocksState.push(c);
+
+    repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(3);
+    repBlock.buildAddBlock("Move");
+    newCodeBlocksState.push(repBlock);
+
+    c = new TurnBlock();
+    c.setRotateTo("left");
+    newCodeBlocksState.push(c);
+
+    repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(1);
+    repBlock.buildAddBlock("Move");
+    newCodeBlocksState.push(repBlock);
+
+    c = new TurnBlock();
+    c.setRotateTo("left");
+    newCodeBlocksState.push(c);
+
+    repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(1);
+    repBlock.buildAddBlock("Move");
+    newCodeBlocksState.push(repBlock);
+
+    c = new TurnBlock();
+    c.setRotateTo("right");
+    newCodeBlocksState.push(c);
+
+    repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(3);
+    repBlock.buildAddBlock("Move");
+    newCodeBlocksState.push(repBlock);
+
+    c = new TurnBlock();
+    c.setRotateTo("right");
+    newCodeBlocksState.push(c);
+
+    repBlock = new RepeatNTimesBlock();
+    repBlock.setNumIter(6);
     repBlock.buildAddBlock("Move");
     newCodeBlocksState.push(repBlock);
 
@@ -84,18 +167,53 @@ export class App extends Component<AppProps, AppState> {
     return code;
   };
 
-  generateAndRunCode = (): void => {
-    const code = this.generateCodeFromBlocks().join("");
-    console.log(code);
-    eval(code);
+  generateAndRunCode = async () => {
+    this.setState({ isCodeRunning: true });
+
+    const code: string[] = [];
+
+    const optimizedBlocks: CodeBlock[] = optimizeCodeBlocks(
+      this.state.codeBlocks
+    );
+
+    for (let i = 0; i < optimizedBlocks.length; i++) {
+      code.push(optimizedBlocks[i].generateCode());
+      code.push("this.g.moveEnemy();");
+      code.push("await this.sleep(1000);");
+    }
+
+    // Builds the async function prototype where the code will be executed
+    const AsyncFunction = Object.getPrototypeOf(
+      async function () {}
+    ).constructor;
+
+    // Instantiates the function, whith the code on its body and sets this inside function
+    const actualFunction = new AsyncFunction(code.join(" ")).bind({
+      g: this.g,
+      sleep: this.sleep,
+    });
+
+    actualFunction();
+
+    this.setState({ isCodeRunning: false });
+  };
+
+  calcOptimization = (): void => {
+    const optimized: CodeBlock[] = CrossOver(this.state.codeBlocks);
+    this.reset();
+    this.setState({
+      codeBlocks: optimized,
+    });
   };
 
   resetState = () => {
     this.setState({
       gameState: this.g.getState(),
       playerState: this.g.getPlayer(),
+      enemyState: this.g.getEnemy(),
       objetiveState: this.g.getObjectivePos(),
       codeBlocks: [],
+      isCodeRunning: false,
     });
   };
 
@@ -137,6 +255,7 @@ export class App extends Component<AppProps, AppState> {
           gameState={{
             state: this.state.gameState,
             player: this.state.playerState,
+            enemy: this.state.enemyState,
             objectivePos: this.state.objetiveState,
           }}
         />
@@ -146,11 +265,17 @@ export class App extends Component<AppProps, AppState> {
           codeBlocks={this.state.codeBlocks}
         />
         <CodeComponent codeBlocks={this.state.codeBlocks} />
-        <ButtonSection
-          onReset={this.reset}
-          onRun={this.generateAndRunCode}
-          isCodeReady={this.isCodeReady()}
-        />
+        {!this.state.isCodeRunning ? (
+          <ButtonSection
+            onReset={this.reset}
+            onRun={this.generateAndRunCode}
+            isCodeReady={this.isCodeReady()}
+            onOptimize={this.calcOptimization}
+            isGameOver={this.isGameOver()}
+          />
+        ) : (
+          <></>
+        )}
       </div>
     );
   }

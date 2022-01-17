@@ -1,14 +1,14 @@
 import { BlockType } from "../Types";
 import { CodeBlock } from "./CodeBlock";
 
-export class MoveBlock implements CodeBlock {
-  generateCode = () => "this.g.movePlayer();";
+export class WaitBlock implements CodeBlock {
+  generateCode = () => "this.g.stopPlayer();";
 
   getDisplayCode = () => this.generateCode();
 
-  getDisplayInfo = (): string => "Move Player";
+  getDisplayInfo = (): string => "Wait";
 
-  getType = (): BlockType => "Move";
+  getType = (): BlockType => "Wait";
 
   isComplete = () => true;
 

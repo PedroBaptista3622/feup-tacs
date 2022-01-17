@@ -23,7 +23,6 @@ const PlaygroundComponent = ({
     const target: HTMLDivElement = dragEvent.target as HTMLDivElement;
 
     if (target.id === "playgroundBody") {
-      console.log("Dropped on Playground");
       const blockTypeTransfered: string =
         dragEvent.dataTransfer.getData("blockType");
       const blockType: BlockType = blockTypeTransfered as BlockType;
