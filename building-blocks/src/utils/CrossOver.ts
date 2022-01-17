@@ -5,7 +5,7 @@ import { MoveBlock } from "../codeBlocks/MoveBlock"
 import { Game } from "../Game"
 import { WaitBlock } from "../codeBlocks/WaitBlock"
 
-const transformCodeBlocks = (codeBlocks: CodeBlock[]): String[] => {
+export const transformCodeBlocks = (codeBlocks: CodeBlock[]): String[] => {
     const newBlocks: String[] = []
 
     codeBlocks.forEach((block) => {

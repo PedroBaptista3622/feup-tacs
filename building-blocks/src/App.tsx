@@ -12,13 +12,11 @@ import "./styles/blocks.css";
 import "./styles/buttons.css";
 
 import { CodeBlock } from "./codeBlocks/CodeBlock";
-import { MoveBlock } from "./codeBlocks/MoveBlock";
 import { TurnBlock } from "./codeBlocks/TurnBlock";
 import { ButtonSection } from "./components/ButtonSection";
 import { Component } from "react";
 import { GameState, Player, Enemy, Position } from "./Types";
 import { RepeatNTimesBlock } from "./codeBlocks/RepeateBlock";
-import { WaitBlock } from "./codeBlocks/WaitBlock";
 import { optimizeCodeBlocks } from "./utils/CodeOptimizer";
 
 interface AppProps {}
